@@ -9,8 +9,8 @@
 ## Fase 1: Configuración Inicial y Arquitectura (Trabajo Conjunto)
 *Antes de tirar código, deben dejar la base lista para evitar conflictos en GitHub.*
 
-* **Andrés:** Crear dos proyectos separados en su IDE: uno para la interfaz gráfica y otro para la capa lógica. 
-* **Andrés:** Configurar los repositorios en GitHub para ambos proyectos y dar acceso a Alex.
+* **Andrés:** Crear dos packages separados en su IDE: uno para la interfaz gráfica y otro para la capa lógica. 
+* **Andrés:** Configurar el repositorio en GitHub y dar acceso a Alex.
 * **Alex:** Crear la estructura base de paquetes en ambos proyectos, asegurándose de que el paquete raíz sea `cr.ac.ucenfotec`.
 * **Alex:** Crear la clase "Gestor" o "Controlador" en la capa lógica, la cual servirá de puente para que la interfaz gráfica no instancie objetos de negocio.
 * **Ambos:** Definir que toda la persistencia de datos se manejará temporalmente usando `ArrayLists` en la memoria de este Gestor.
