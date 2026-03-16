@@ -38,14 +38,14 @@ public class Menu {
     }
 
     private void mostrarMenu() {
-        System.out.println("\n--- Menú Principal ---");
-        System.out.println("1. Registro de usuarios");
-        System.out.println("2. Listado de usuarios");
-        System.out.println("3. Creación de subastas");
-        System.out.println("4. Listado de subastas");
-        System.out.println("5. Creación de ofertas");
-        System.out.println("6. Listado de ofertas");
-        System.out.println("7. Salir");
+        System.out.println("\n--- Menú Principal ---" +
+            "\n1. Registro de usuarios" +
+            "\n2. Listado de usuarios" +
+            "\n3. Creación de subastas" +
+            "\n4. Listado de subastas" +
+            "\n5. Creación de ofertas" +
+            "\n6. Listado de ofertas" +
+            "\n7. Salir");
     }
 
     private void procesarOpcion(int opcion) {
@@ -80,10 +80,9 @@ public class Menu {
         try {
             int tipo = tipoForzado;
             if (tipo == 0) {
-                System.out.println("\n--- Registro de usuario ---");
-                System.out.println("¿Qué tipo de usuario desea registrar?");
-                System.out.println("1. Vendedor");
-                System.out.println("2. Coleccionista");
+                System.out.println("\n--- Registro de usuario ---" +
+                    "\n1. Vendedor" +
+                    "\n2. Coleccionista");
                 tipo = leerEntero("Seleccione una opción: ");
                 
                 if (tipo != 1 && tipo != 2) {
