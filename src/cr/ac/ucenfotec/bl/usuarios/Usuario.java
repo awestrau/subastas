@@ -1,6 +1,7 @@
 package cr.ac.ucenfotec.bl.usuarios;
 
 import java.time.LocalDate;
+import java.time.Period;
 
 public abstract class Usuario {
 
@@ -40,6 +41,13 @@ public abstract class Usuario {
         this.fechaNacimiento = fechaNacimiento;
     }
 
+    public int getEdad() {
+        if (fechaNacimiento == null) {
+            return 0;
+        }
+        return Period.between(fechaNacimiento, LocalDate.now()).getYears();
+    }
+
     public String getPassword() {
         return password;
     }
@@ -55,4 +63,12 @@ public abstract class Usuario {
     public void setCorreo(String correo) {
         this.correo = correo;
     }
+
+    @Override
+    public String toString() {
+        return "Usuario [nombre=" + nombre + ", id=" + id + ", fechaNacimiento=" + fechaNacimiento + ", password="
+                + password + ", correo=" + correo + "]";
+    }
+
+    
 }

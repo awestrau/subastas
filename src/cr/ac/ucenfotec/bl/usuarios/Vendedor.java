@@ -25,6 +25,13 @@ public class Vendedor extends Usuario {
     public void setDireccion(String direccion) {
         this.direccion = direccion;
     }
+
+    @Override
+    public String toString() {
+        return "Vendedor [puntuacion=" + puntuacion + ", direccion=" + direccion + ", getNombre()=" + getNombre()
+                + ", getId()=" + getId() + ", getFechaNacimiento()=" + getFechaNacimiento() + ", getCorreo()="
+                + getCorreo() + "]";
+    }
     
     
 }
