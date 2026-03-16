@@ -1,4 +1,3 @@
 package cr.ac.ucenfotec;
 
-public class Main {
-}
+public class Main {}
