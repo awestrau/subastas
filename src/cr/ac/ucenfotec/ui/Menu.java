@@ -1,7 +1,12 @@
 package cr.ac.ucenfotec.ui;
 
+import cr.ac.ucenfotec.bl.GestorSubastas;
 import cr.ac.ucenfotec.bl.GestorUsuarios;
+import cr.ac.ucenfotec.bl.Oferta;
+import cr.ac.ucenfotec.bl.Subastas;
+import cr.ac.ucenfotec.bl.usuarios.Coleccionista;
 import cr.ac.ucenfotec.bl.usuarios.Usuario;
+import cr.ac.ucenfotec.bl.usuarios.Vendedor;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -12,9 +17,11 @@ import java.util.Scanner;
 public class Menu {
     private GestorUsuarios gestor;
     private Scanner scanner;
+    private GestorSubastas gestorSubastas;
 
     public Menu() {
         gestor = new GestorUsuarios();
+        gestorSubastas = new GestorSubastas();
         scanner = new Scanner(System.in);
     }
 
@@ -48,7 +55,7 @@ public class Menu {
         System.out.println("7. Salir");
     }
 
-    private void procesarOpcion(int opcion) {
+    private void procesarOpcion(int opcion){
         switch (opcion) {
             case 1:
                 registrarUsuario(0);
@@ -57,16 +64,16 @@ public class Menu {
                 listarUsuarios();
                 break;
             case 3:
-                System.out.println("Opción en desarrollo: Creación de subastas.");
+                crearSubasta();
                 break;
             case 4:
-                System.out.println("Opción en desarrollo: Listado de subastas.");
+                listarSubastas();
                 break;
             case 5:
-                System.out.println("Opción en desarrollo: Creación de ofertas.");
+                crearOferta();
                 break;
             case 6:
-                System.out.println("Opción en desarrollo: Listado de ofertas.");
+                listarOferta();
                 break;
             case 7:
                 System.out.println("Saliendo del sistema...");
@@ -161,4 +168,166 @@ public class Menu {
             }
         }
     }
+
+    private void crearSubasta(){
+        try{
+
+            System.out.println("\n--- Crear Subasta ---");
+
+            ArrayList<Usuario> usuarios = gestor.listarUsuarios();
+
+            for(int i=0;i<usuarios.size();i++){
+                System.out.println(i + " - " + usuarios.get(i).getNombre());
+            }
+
+            int indice = leerEntero("Seleccione el creador de esta subasta: ");
+            Usuario creador = usuarios.get(indice);
+
+            // VALIDACIÓN DEL TIPO DE USUARIO
+            if(!(creador instanceof Coleccionista) && !(creador instanceof Vendedor)){
+                System.out.println("Solo los vendedores o coleccionistas pueden crear subastas.");
+                return;
+            }
+
+            double precioMin = leerEntero("Precio mínimo: ");
+
+            int cantidad = leerEntero("Cantidad de objetos: ");
+
+
+            ArrayList<String> nombres = new ArrayList<>();
+            ArrayList<String> descripciones = new ArrayList<>();
+
+            for(int i=0;i<cantidad;i++){
+
+                System.out.print("Nombre objeto: ");
+                nombres.add(scanner.nextLine());
+
+                System.out.print("Descripción: ");
+                descripciones.add(scanner.nextLine());
+            }
+
+            if(creador instanceof Coleccionista){
+                gestorSubastas.crearSubasta(
+                        (Coleccionista) creador,
+                        precioMin,
+                        nombres,
+                        descripciones
+                );
+
+            }else {
+                gestorSubastas.crearSubasta(
+                        (Vendedor) creador,
+                        precioMin,
+                        nombres,
+                        descripciones
+                );
+            }
+
+            System.out.println("Subasta creada correctamente.");
+
+        } catch(Exception e){
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+
+    private void listarSubastas(){
+        System.out.println("\n--- Listado de Subastas ---");
+
+        ArrayList<Subastas> subastas = gestorSubastas.listarSubastas();
+
+        if(subastas.isEmpty()){
+            System.out.println("No hay subastas registradas.");
+            return;
+        }
+
+        for(int i = 0; i < subastas.size(); i++){
+            System.out.println(i + " - " + subastas.get(i).toString());
+        }
+    }
+
+    private void crearOferta(){
+            try{
+                System.out.println("\n--- Crear Oferta ---");
+
+                ArrayList<Usuario> usuarios = gestor.listarUsuarios();
+                ArrayList<Coleccionista> coleccionistas = new ArrayList<>();
+
+                for(Usuario u : usuarios){
+                    if(u instanceof Coleccionista){
+                        coleccionistas.add((Coleccionista) u);
+                    }
+                }
+
+                if(coleccionistas.isEmpty()){
+                    System.out.println("No hay coleccionistas registrados.");
+                    return;
+                }
+
+                System.out.println("Seleccione oferente:");
+
+                for(int i = 0; i < coleccionistas.size(); i++){
+                    System.out.println(i + " - " + coleccionistas.get(i).getNombre());
+                }
+
+                int indiceColeccionista = leerEntero("Opción: ");
+                Coleccionista oferente = coleccionistas.get(indiceColeccionista);
+
+                ArrayList<Subastas> subastas = gestorSubastas.listarSubastas();
+
+                if(subastas.isEmpty()){
+                    System.out.println("No hay subastas disponibles.");
+                    return;
+                }
+
+                System.out.println("Seleccione subasta:");
+
+                for(int i = 0; i < subastas.size(); i++){
+                    System.out.println(i + " - " + subastas.get(i));
+                }
+
+                int indiceSubasta = leerEntero("Opción: ");
+                Subastas subasta = subastas.get(indiceSubasta);
+
+                double monto = leerEntero("Monto de la oferta: ");
+
+                gestorSubastas.realizaroferta(oferente, subasta, monto);
+
+                System.out.println("Oferta registrada correctamente.");
+
+            }catch(Exception e){
+                System.out.println("Error: " + e.getMessage());
+            }
+    }
+
+    private void listarOferta(){
+            System.out.println("\n--- Listado de Ofertas ---");
+
+            ArrayList<Subastas> subastas = gestorSubastas.listarSubastas();
+
+            if(subastas.isEmpty()){
+                System.out.println("No hay subastas registradas.");
+                return;
+            }
+
+            boolean hayOfertas = false;
+
+            for(Subastas s : subastas){
+
+                if(!s.getListaOfertas().isEmpty()){
+
+                    System.out.println("\nSubasta: " + s.toString());
+
+                    for(Oferta o : s.getListaOfertas()){
+                        System.out.println(o.toString());
+                    }
+
+                    hayOfertas = true;
+                }
+            }
+
+            if(!hayOfertas){
+                System.out.println("No hay ofertas registradas.");
+            }
+    }
+
 }

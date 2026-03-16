@@ -1,20 +1,30 @@
 package cr.ac.ucenfotec.bl;
 
 import java.time.LocalDate;
+import java.time.Period;
 
 public class Objetos {
     private String nombre;
     private String descripcion;
     private String estado;
     private LocalDate fechaCompra;
-    private int antiguedad;
+    private String antiguedad;
 
-    public Objetos(String nombre, String descripcion, String estado, LocalDate fechaCompra, int antiguedad) {
+    public Objetos(String nombre, String descripcion, String estado, LocalDate fechaCompra, String antiguedad) {
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.estado = estado;
         this.fechaCompra = fechaCompra;
         this.antiguedad = antiguedad;
+    }
+
+    public Objetos(String nombre, String descripcion) {
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.estado = "En subasta";
+        this.fechaCompra = LocalDate.now();
+        this.antiguedad = "Años: " + Period.between(fechaCompra, LocalDate.now()).getYears() + "Meses: " +
+                Period.between(fechaCompra, LocalDate.now()).getMonths() + "Días: " + Period.between(fechaCompra, LocalDate.now()).getDays();
     }
 
     public String getNombre() {
@@ -49,11 +59,11 @@ public class Objetos {
         this.fechaCompra = fechaCompra;
     }
 
-    public int getAntiguedad() {
+    public String getAntiguedad() {
         return antiguedad;
     }
 
-    public void setAntiguedad(int antiguedad) {
+    public void setAntiguedad(String antiguedad) {
         this.antiguedad = antiguedad;
     }
 
