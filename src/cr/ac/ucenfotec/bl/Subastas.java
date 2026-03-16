@@ -28,8 +28,16 @@ public class Subastas {
             throw new Exception("Esta subasta no tiene objetos");
         }
         for (Objetos objeto: objetosSubastados){
-            if(!creador.getObjetos().contains(objeto)){
-                throw new Exception("El item no pertenece a la colección.");
+            boolean pertenece = false;
+
+            if (objetosSubastados == null || objetosSubastados.isEmpty()){
+                throw new Exception("Esta subasta no tiene objetos");
+            }
+            for(Objetos objColeccion : creador.getObjetos()){
+                if(objColeccion.getNombre().equals(objeto.getNombre())){
+                    pertenece = true;
+                    break;
+                }
             }
         }
         this.fechaVencimiento = LocalDateTime.now().plusDays(1);
