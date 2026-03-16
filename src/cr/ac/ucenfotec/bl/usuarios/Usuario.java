@@ -10,9 +10,13 @@ public abstract class Usuario {
     private LocalDate fechaNacimiento;
     private String password;
     private String correo;
+    public Usuario() {
+    }
 
-    public Usuario(String nombre, String correo, String password) {
+    public Usuario(String nombre, String id, String password, LocalDate fechaNacimiento, String correo) {
         this.nombre = nombre;
+        this.id = id;
+        this.fechaNacimiento = fechaNacimiento;
         this.correo = correo;
         this.password = password;
     }

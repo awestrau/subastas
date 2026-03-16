@@ -1,7 +1,18 @@
 package cr.ac.ucenfotec.bl.usuarios;
 
+import java.time.LocalDate;
+
 public class Moderador extends Usuario {
-    public Moderador(String nombre, String correo, String password) {
-        super(nombre, correo, password);
+    public Moderador() {
+    }
+
+    public Moderador(String nombre, String id, String password, LocalDate fechaNacimiento, String correo) {
+        super(nombre, id, password, fechaNacimiento, correo);
+    }
+
+    @Override
+    public String toString() {
+        return "Moderador [getNombre()=" + getNombre() + ", getId()=" + getId() + ", getFechaNacimiento()="
+                + getFechaNacimiento() + ", getCorreo()=" + getCorreo() + "]";
     }
 }

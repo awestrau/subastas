@@ -1,5 +1,7 @@
 package cr.ac.ucenfotec.bl.usuarios;
 
+import java.time.LocalDate;
+
 import java.util.ArrayList;
 import cr.ac.ucenfotec.bl.Objetos;
 
@@ -9,10 +11,17 @@ public class Coleccionista extends Usuario {
     private ArrayList<String> intereses;
     private ArrayList<Objetos> objetos;
 
-    public Coleccionista(String nombre, String correo, String password, int puntuacionColeccionista, String direccion) {
-        super(nombre, correo, password);
+    public Coleccionista() {
+        this.intereses = new ArrayList<>();
+        this.objetos = new ArrayList<>();
+    }
+
+    public Coleccionista(String nombre, String id, String password, LocalDate fechaNacimiento, String correo, int puntuacionColeccionista, String direccion) {
+        super(nombre, id, password, fechaNacimiento, correo);
         this.puntuacion = puntuacionColeccionista;
         this.direccion = direccion;
+        this.intereses = new ArrayList<>();
+        this.objetos = new ArrayList<>();
     }
 
     public int getPuntuacion() {
