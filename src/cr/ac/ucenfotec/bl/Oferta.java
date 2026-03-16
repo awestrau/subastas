@@ -1,9 +1,12 @@
 package cr.ac.ucenfotec.bl;
 
+import cr.ac.ucenfotec.bl.usuarios.Coleccionista;
+import cr.ac.ucenfotec.bl.usuarios.Usuario;
+
 public class Oferta {
 
     //Atributos
-    private String nombreOferente;
+    private Coleccionista oferente;
     private double puntuacionOferente;
     private double precioOfertado;
 
@@ -12,15 +15,17 @@ public class Oferta {
     public Oferta() {
     }
 
-    public Oferta(String nombreOferente, double puntuacionOferente, double precioOfertado) {
-        this.nombreOferente = nombreOferente;
-        this.puntuacionOferente = puntuacionOferente;
+    public Oferta(Coleccionista oferente, double precioOfertado) {
         this.precioOfertado = precioOfertado;
+        this.puntuacionOferente = oferente.getPuntuacion();
+        this.oferente = oferente;
     }
 
     //Getters
-    public String getNombreOferente() {
-        return nombreOferente;
+
+
+    public Coleccionista getOferente() {
+        return oferente;
     }
 
     public double getPuntuacionOferente() {
@@ -32,8 +37,10 @@ public class Oferta {
     }
 
     //Setters
-    public void setNombreOferente(String nombreOferente) {
-        this.nombreOferente = nombreOferente;
+
+
+    public void setOferente(Coleccionista oferente) {
+        this.oferente = oferente;
     }
 
     public void setPuntuacionOferente(double puntuacionOferente) {
@@ -47,7 +54,7 @@ public class Oferta {
     //ToString
     public String toString() {
         return "Oferta{" +
-                "nombreOferente='" + nombreOferente + '\'' +
+                "nombreOferente='" + oferente.getNombre() + '\'' +
                 ", puntuacionOferente=" + puntuacionOferente +
                 ", precioOfertado=" + precioOfertado +
                 '}';
