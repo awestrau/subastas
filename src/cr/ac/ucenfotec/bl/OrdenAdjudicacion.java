@@ -16,7 +16,7 @@ public class OrdenAdjudicacion {
     public OrdenAdjudicacion() {
     }
 
-    public OrdenAdjudicacion(String nombreGanador, LocalDateTime fechaOrden, ArrayList<Objetos> objetosAdjudicados, double precioTotal) {
+    public OrdenAdjudicacion(String nombreGanador, ArrayList<Objetos> objetosAdjudicados, double precioTotal) {
         this.nombreGanador = nombreGanador;
         this.fechaOrden = LocalDateTime.now();
         this.objetosAdjudicados = objetosAdjudicados;
