@@ -1,12 +1,12 @@
-package cr.ac.ucenfotec.bl;
+package cr.ac.ucenfotec.bl.entities;
+
+import cr.ac.ucenfotec.bl.entities.usuarios.Coleccionista;
+import cr.ac.ucenfotec.bl.entities.usuarios.Usuario;
+import cr.ac.ucenfotec.bl.entities.usuarios.Vendedor;
 
 import java.time.LocalDateTime;
 import java.time.Duration;
 import java.util.ArrayList;
-
-import cr.ac.ucenfotec.bl.usuarios.Coleccionista;
-import cr.ac.ucenfotec.bl.usuarios.Usuario;
-import cr.ac.ucenfotec.bl.usuarios.Vendedor;
 
 public class Subasta {
 

@@ -1,12 +1,12 @@
 package cr.ac.ucenfotec.ui;
 
-import cr.ac.ucenfotec.bl.GestorSubastas;
-import cr.ac.ucenfotec.bl.GestorUsuarios;
-import cr.ac.ucenfotec.bl.Oferta;
-import cr.ac.ucenfotec.bl.Subastas;
-import cr.ac.ucenfotec.bl.usuarios.Coleccionista;
-import cr.ac.ucenfotec.bl.usuarios.Usuario;
-import cr.ac.ucenfotec.bl.usuarios.Vendedor;
+import cr.ac.ucenfotec.bl.logic.GestorSubastas;
+import cr.ac.ucenfotec.bl.logic.GestorUsuarios;
+import cr.ac.ucenfotec.bl.entities.Oferta;
+import cr.ac.ucenfotec.bl.entities.Subasta;
+import cr.ac.ucenfotec.bl.entities.usuarios.Coleccionista;
+import cr.ac.ucenfotec.bl.entities.usuarios.Usuario;
+import cr.ac.ucenfotec.bl.entities.usuarios.Vendedor;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -15,12 +15,12 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Menu {
-    private GestorUsuarios gestor;
-    private Scanner scanner;
-    private GestorSubastas gestorSubastas;
+    private static GestorUsuarios gestorUsuarios;
+    private static Scanner scanner;
+    private static GestorSubastas gestorSubastas;
 
     public Menu() {
-        gestor = new GestorUsuarios();
+        gestorUsuarios = new GestorUsuarios();
         gestorSubastas = new GestorSubastas();
         scanner = new Scanner(System.in);
     }
@@ -38,7 +38,7 @@ public class Menu {
     }
 
     private void verificarModerador() {
-        if (!gestor.existeModerador()) {
+        if (!gestorUsuarios.existeModerador()) {
             System.out.println("No existe un moderador en el sistema. Debe registrar uno para continuar.");
             registrarUsuario(1);
         }
@@ -111,19 +111,19 @@ public class Menu {
             LocalDate fechaNacimiento = leerFecha("Fecha de nacimiento (YYYY-MM-DD): ");
 
             if (tipo == 1) {
-                gestor.registrarModerador(nombre, id, password, fechaNacimiento, correo);
+                gestorUsuarios.registrarModerador(nombre, id, password, fechaNacimiento, correo);
                 System.out.println("Moderador registrado exitosamente.");
             } else if (tipo == 2) {
                 int puntuacion = leerEntero("Puntuación inicial: ");
                 System.out.print("Dirección: ");
                 String direccion = scanner.nextLine();
-                gestor.registrarVendedor(nombre, id, password, fechaNacimiento, correo, puntuacion, direccion);
+                gestorUsuarios.registrarVendedor(nombre, id, password, fechaNacimiento, correo, puntuacion, direccion);
                 System.out.println("Vendedor registrado exitosamente.");
             } else if (tipo == 3) {
                 int puntuacion = leerEntero("Puntuación inicial: ");
                 System.out.print("Dirección: ");
                 String direccion = scanner.nextLine();
-                gestor.registrarColeccionista(nombre, id, password, fechaNacimiento, correo, puntuacion, direccion);
+                gestorUsuarios.registrarColeccionista(nombre, id, password, fechaNacimiento, correo, puntuacion, direccion);
                 System.out.println("Coleccionista registrado exitosamente.");
             }
 
@@ -134,7 +134,7 @@ public class Menu {
 
     private void listarUsuarios() {
         System.out.println("\n--- Listado de Usuarios ---");
-        ArrayList<Usuario> usuarios = gestor.listarUsuarios();
+        ArrayList<Usuario> usuarios = gestorUsuarios.listarUsuarios();
         if (usuarios.isEmpty()) {
             System.out.println("No hay usuarios registrados.");
         } else {
@@ -173,7 +173,7 @@ public class Menu {
 
             System.out.println("\n--- Crear Subasta ---");
 
-            ArrayList<Usuario> usuarios = gestor.listarUsuarios();
+            ArrayList<Usuario> usuarios = gestorUsuarios.listarUsuarios();
 
             for(int i=0;i<usuarios.size();i++){
                 System.out.println(i + " - " + usuarios.get(i).getNombre());
@@ -232,7 +232,7 @@ public class Menu {
     private void listarSubastas(){
         System.out.println("\n--- Listado de Subastas ---");
 
-        ArrayList<Subastas> subastas = gestorSubastas.listarSubastas();
+        ArrayList<Subasta> subastas = gestorSubastas.listarSubastas();
 
         if(subastas.isEmpty()){
             System.out.println("No hay subastas registradas.");
@@ -248,7 +248,7 @@ public class Menu {
             try{
                 System.out.println("\n--- Crear Oferta ---");
 
-                ArrayList<Usuario> usuarios = gestor.listarUsuarios();
+                ArrayList<Usuario> usuarios = gestorUsuarios.listarUsuarios();
                 ArrayList<Coleccionista> coleccionistas = new ArrayList<>();
 
                 for(Usuario u : usuarios){
@@ -271,7 +271,7 @@ public class Menu {
                 int indiceColeccionista = leerEntero("Opción: ");
                 Coleccionista oferente = coleccionistas.get(indiceColeccionista);
 
-                ArrayList<Subastas> subastas = gestorSubastas.listarSubastas();
+                ArrayList<Subasta> subastas = gestorSubastas.listarSubastas();
 
                 if(subastas.isEmpty()){
                     System.out.println("No hay subastas disponibles.");
@@ -285,7 +285,7 @@ public class Menu {
                 }
 
                 int indiceSubasta = leerEntero("Opción: ");
-                Subastas subasta = subastas.get(indiceSubasta);
+                Subasta subasta = subastas.get(indiceSubasta);
 
                 double monto = leerEntero("Monto de la oferta: ");
 
@@ -301,7 +301,7 @@ public class Menu {
     private void listarOferta(){
             System.out.println("\n--- Listado de Ofertas ---");
 
-            ArrayList<Subastas> subastas = gestorSubastas.listarSubastas();
+            ArrayList<Subasta> subastas = gestorSubastas.listarSubastas();
 
             if(subastas.isEmpty()){
                 System.out.println("No hay subastas registradas.");
@@ -310,7 +310,7 @@ public class Menu {
 
             boolean hayOfertas = false;
 
-            for(Subastas s : subastas){
+            for(Subasta s : subastas){
 
                 if(!s.getListaOfertas().isEmpty()){
 

@@ -1,7 +1,10 @@
-package cr.ac.ucenfotec.bl;
+package cr.ac.ucenfotec.bl.logic;
 
-import cr.ac.ucenfotec.bl.usuarios.Coleccionista;
-import cr.ac.ucenfotec.bl.usuarios.Vendedor;
+import cr.ac.ucenfotec.bl.entities.Objeto;
+import cr.ac.ucenfotec.bl.entities.OrdenAdjudicacion;
+import cr.ac.ucenfotec.bl.entities.Subasta;
+import cr.ac.ucenfotec.bl.entities.usuarios.Coleccionista;
+import cr.ac.ucenfotec.bl.entities.usuarios.Vendedor;
 
 import java.util.ArrayList;
 

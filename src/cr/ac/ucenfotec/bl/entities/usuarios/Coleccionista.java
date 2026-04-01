@@ -1,9 +1,10 @@
-package cr.ac.ucenfotec.bl.usuarios;
+package cr.ac.ucenfotec.bl.entities.usuarios;
+
+import cr.ac.ucenfotec.bl.entities.Objeto;
 
 import java.time.LocalDate;
 
 import java.util.ArrayList;
-import cr.ac.ucenfotec.bl.Objeto;
 
 public class Coleccionista extends Usuario {
     private int puntuacion;

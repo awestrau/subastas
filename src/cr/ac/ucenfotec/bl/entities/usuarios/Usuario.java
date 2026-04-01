@@ -1,4 +1,4 @@
-package cr.ac.ucenfotec.bl.usuarios;
+package cr.ac.ucenfotec.bl.entities.usuarios;
 
 import java.time.LocalDate;
 import java.time.Period;

@@ -1,4 +1,4 @@
-package cr.ac.ucenfotec.bl;
+package cr.ac.ucenfotec.bl.entities;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

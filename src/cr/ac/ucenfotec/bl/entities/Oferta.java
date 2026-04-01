@@ -1,7 +1,6 @@
-package cr.ac.ucenfotec.bl;
+package cr.ac.ucenfotec.bl.entities;
 
-import cr.ac.ucenfotec.bl.usuarios.Coleccionista;
-import cr.ac.ucenfotec.bl.usuarios.Usuario;
+import cr.ac.ucenfotec.bl.entities.usuarios.Coleccionista;
 
 public class Oferta {
 

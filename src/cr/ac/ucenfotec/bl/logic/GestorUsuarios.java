@@ -1,9 +1,9 @@
-package cr.ac.ucenfotec.bl;
+package cr.ac.ucenfotec.bl.logic;
 
-import cr.ac.ucenfotec.bl.usuarios.Coleccionista;
-import cr.ac.ucenfotec.bl.usuarios.Moderador;
-import cr.ac.ucenfotec.bl.usuarios.Usuario;
-import cr.ac.ucenfotec.bl.usuarios.Vendedor;
+import cr.ac.ucenfotec.bl.entities.usuarios.Coleccionista;
+import cr.ac.ucenfotec.bl.entities.usuarios.Moderador;
+import cr.ac.ucenfotec.bl.entities.usuarios.Usuario;
+import cr.ac.ucenfotec.bl.entities.usuarios.Vendedor;
 
 import java.time.LocalDate;
 import java.time.Period;
