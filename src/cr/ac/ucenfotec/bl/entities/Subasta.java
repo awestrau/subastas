@@ -1,6 +1,5 @@
 package cr.ac.ucenfotec.bl;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Duration;
 import java.util.ArrayList;
@@ -9,7 +8,7 @@ import cr.ac.ucenfotec.bl.usuarios.Coleccionista;
 import cr.ac.ucenfotec.bl.usuarios.Usuario;
 import cr.ac.ucenfotec.bl.usuarios.Vendedor;
 
-public class Subastas {
+public class Subasta {
 
     //Atributos
     private LocalDateTime fechaVencimiento;
@@ -17,23 +16,23 @@ public class Subastas {
     private Usuario creador;
     private double calificacionCreador;
     private double precioMinimo;
-    private ArrayList<Objetos> objetosSubastados;
+    private ArrayList<Objeto> objetosSubastados;
     private boolean vigente;
     private Oferta oferta;
     private ArrayList<Oferta> listaOfertas;
 
     //Constructores
-    public Subastas(Coleccionista creador, double precioMinimo, ArrayList<Objetos> objetosSubastados) throws Exception{
+    public Subasta(Coleccionista creador, double precioMinimo, ArrayList<Objeto> objetosSubastados) throws Exception{
         if (objetosSubastados == null || objetosSubastados.isEmpty()){
             throw new Exception("Esta subasta no tiene objetos");
         }
-        for (Objetos objeto: objetosSubastados){
+        for (Objeto objeto: objetosSubastados){
             boolean pertenece = false;
 
             if (objetosSubastados == null || objetosSubastados.isEmpty()){
                 throw new Exception("Esta subasta no tiene objetos");
             }
-            for(Objetos objColeccion : creador.getObjetos()){
+            for(Objeto objColeccion : creador.getObjetos()){
                 if(objColeccion.getNombre().equals(objeto.getNombre())){
                     pertenece = true;
                     break;
@@ -50,7 +49,7 @@ public class Subastas {
         this.listaOfertas = new ArrayList<>();
     }
 
-    public Subastas(Vendedor creador, double precioMinimo, ArrayList<Objetos> objetosSubastados) throws Exception{
+    public Subasta(Vendedor creador, double precioMinimo, ArrayList<Objeto> objetosSubastados) throws Exception{
         if (objetosSubastados == null || objetosSubastados.isEmpty()){
             throw new Exception("Esta subasta no tiene objetos");
         }
@@ -64,7 +63,7 @@ public class Subastas {
         this.listaOfertas = new ArrayList<>();
     }
 
-    public Subastas() {
+    public Subasta() {
     }
 
 
@@ -90,7 +89,7 @@ public class Subastas {
         return precioMinimo;
     }
 
-    public ArrayList<Objetos> getObjetosSubastados() {
+    public ArrayList<Objeto> getObjetosSubastados() {
         return objetosSubastados;
     }
 
@@ -123,8 +122,8 @@ public class Subastas {
         this.precioMinimo = precioMinimo;
     }
 
-    public void setObjetosSubastados(ArrayList<Objetos> objetosSubastados) {
-        this.objetosSubastados = objetosSubastados;
+    public void setObjetosSubastados(ArrayList<Objeto> objetoSubastados) {
+        this.objetosSubastados = objetoSubastados;
     }
 
     public void setEstado(boolean estado) {

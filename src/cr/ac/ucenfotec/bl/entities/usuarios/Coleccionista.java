@@ -3,13 +3,13 @@ package cr.ac.ucenfotec.bl.usuarios;
 import java.time.LocalDate;
 
 import java.util.ArrayList;
-import cr.ac.ucenfotec.bl.Objetos;
+import cr.ac.ucenfotec.bl.Objeto;
 
 public class Coleccionista extends Usuario {
     private int puntuacion;
     private String direccion;
     private ArrayList<String> intereses;
-    private ArrayList<Objetos> objetos;
+    private ArrayList<Objeto> objetos;
 
     public Coleccionista() {
         this.intereses = new ArrayList<>();
@@ -48,11 +48,11 @@ public class Coleccionista extends Usuario {
         this.intereses.add(interes);
     }
 
-    public ArrayList<Objetos> getObjetos() {
+    public ArrayList<Objeto> getObjetos() {
         return objetos;
     }
 
-    public void agregarObjetos(Objetos objeto) {
+    public void agregarObjetos(Objeto objeto) {
         this.objetos.add(objeto);
     }
 

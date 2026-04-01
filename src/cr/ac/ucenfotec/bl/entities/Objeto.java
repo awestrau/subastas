@@ -3,14 +3,14 @@ package cr.ac.ucenfotec.bl;
 import java.time.LocalDate;
 import java.time.Period;
 
-public class Objetos {
+public class Objeto {
     private String nombre;
     private String descripcion;
     private String estado;
     private LocalDate fechaCompra;
     private String antiguedad;
 
-    public Objetos(String nombre, String descripcion, String estado, LocalDate fechaCompra, String antiguedad) {
+    public Objeto(String nombre, String descripcion, String estado, LocalDate fechaCompra, String antiguedad) {
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.estado = estado;
@@ -18,7 +18,7 @@ public class Objetos {
         this.antiguedad = antiguedad;
     }
 
-    public Objetos(String nombre, String descripcion) {
+    public Objeto(String nombre, String descripcion) {
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.estado = "En subasta";

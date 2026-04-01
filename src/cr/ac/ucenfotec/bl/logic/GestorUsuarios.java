@@ -10,10 +10,10 @@ import java.time.Period;
 import java.util.ArrayList;
 
 public class GestorUsuarios {
-    private ArrayList<Usuario> usuarios;
+    private static ArrayList<Usuario> usuarios;
 
     public GestorUsuarios() {
-        this.usuarios = new ArrayList<>();
+        usuarios = new ArrayList<>();
     }
 
     public boolean existeModerador() {
@@ -41,22 +41,22 @@ public class GestorUsuarios {
         }
         validarEdadConfiguracion(fechaNacimiento);
         Moderador nModerador = new Moderador(nombre, id, password, fechaNacimiento, correo);
-        this.usuarios.add(nModerador);
+        usuarios.add(nModerador);
     }
 
     public void registrarVendedor(String nombre, String id, String password, LocalDate fechaNacimiento, String correo, int puntuacionVendedor, String direccion) throws Exception {
         validarEdadConfiguracion(fechaNacimiento);
         Vendedor nVendedor = new Vendedor(nombre, id, password, fechaNacimiento, correo, puntuacionVendedor, direccion);
-        this.usuarios.add(nVendedor);
+        usuarios.add(nVendedor);
     }
 
     public void registrarColeccionista(String nombre, String id, String password, LocalDate fechaNacimiento, String correo, int puntuacionColeccionista, String direccion) throws Exception {
         validarEdadConfiguracion(fechaNacimiento);
         Coleccionista nColeccionista = new Coleccionista(nombre, id, password, fechaNacimiento, correo, puntuacionColeccionista, direccion);
-        this.usuarios.add(nColeccionista);
+        usuarios.add(nColeccionista);
     }
 
     public ArrayList<Usuario> listarUsuarios() {
-        return this.usuarios;
+        return usuarios;
     }
 }

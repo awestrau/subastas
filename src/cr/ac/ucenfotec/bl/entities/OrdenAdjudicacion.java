@@ -8,7 +8,7 @@ public class OrdenAdjudicacion {
     //Atributos
     private String nombreGanador;
     private LocalDateTime fechaOrden;
-    private ArrayList<Objetos> objetosAdjudicados;
+    private ArrayList<Objeto> objetoAdjudicados;
     private double precioTotal;
 
 
@@ -16,10 +16,10 @@ public class OrdenAdjudicacion {
     public OrdenAdjudicacion() {
     }
 
-    public OrdenAdjudicacion(String nombreGanador, ArrayList<Objetos> objetosAdjudicados, double precioTotal) {
+    public OrdenAdjudicacion(String nombreGanador, ArrayList<Objeto> objetoAdjudicados, double precioTotal) {
         this.nombreGanador = nombreGanador;
         this.fechaOrden = LocalDateTime.now();
-        this.objetosAdjudicados = objetosAdjudicados;
+        this.objetoAdjudicados = objetoAdjudicados;
         this.precioTotal = precioTotal;
     }
 
@@ -32,8 +32,8 @@ public class OrdenAdjudicacion {
         return fechaOrden;
     }
 
-    public ArrayList<Objetos> getObjetosAdjudicados() {
-        return objetosAdjudicados;
+    public ArrayList<Objeto> getObjetosAdjudicados() {
+        return objetoAdjudicados;
     }
 
     public double getPrecioTotal() {
@@ -49,8 +49,8 @@ public class OrdenAdjudicacion {
         this.fechaOrden = fechaOrden;
     }
 
-    public void setObjetosAdjudicados(ArrayList<Objetos> objetosAdjudicados) {
-        this.objetosAdjudicados = objetosAdjudicados;
+    public void setObjetosAdjudicados(ArrayList<Objeto> objetoAdjudicados) {
+        this.objetoAdjudicados = objetoAdjudicados;
     }
 
     public void setPrecioTotal(double precioTotal) {
@@ -62,7 +62,7 @@ public class OrdenAdjudicacion {
         return "OrdenAdjudicacion{" +
                 "nombreGanador='" + nombreGanador + '\'' +
                 ", fechaOrden=" + fechaOrden +
-                ", objetosAdjudicados=" + objetosAdjudicados +
+                ", objetosAdjudicados=" + objetoAdjudicados +
                 ", precioTotal=" + precioTotal +
                 '}';
     }
