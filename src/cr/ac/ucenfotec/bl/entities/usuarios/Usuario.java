@@ -5,11 +5,12 @@ import java.time.Period;
 
 public abstract class Usuario {
 
-    private String nombre;
-    private String id;
-    private LocalDate fechaNacimiento;
-    private String password;
-    private String correo;
+    protected String nombre;
+    protected String id;
+    protected LocalDate fechaNacimiento;
+    protected String password;
+    protected String correo;
+
     public Usuario() {
     }
 
