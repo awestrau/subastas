@@ -59,10 +59,8 @@ public class Coleccionista extends Usuario {
 
     @Override
     public String toString() {
-        return "Coleccionista [puntuacion=" + puntuacion + ", direccion=" + direccion + ", intereses=" + intereses
-                + ", objetos=" + objetos + ", getPuntuacion()=" + getPuntuacion() + ", getNombre()=" + getNombre()
-                + ", getId()=" + getId() + ", getDireccion()=" + getDireccion() + ", getFechaNacimiento()="
-                + getFechaNacimiento() + ", getCorreo()=" + getCorreo() + "]";
+        return String.format("👤 [Coleccionista] %s\n   Puntuación: %d | Dirección: %s\n   Intereses: %d | Objetos registrados: %d",
+                super.toString(), puntuacion, direccion, intereses.size(), objetos.size());
     }
 
     

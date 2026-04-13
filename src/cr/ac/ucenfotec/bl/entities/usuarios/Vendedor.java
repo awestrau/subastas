@@ -33,9 +33,8 @@ public class Vendedor extends Usuario {
 
     @Override
     public String toString() {
-        return "Vendedor [puntuacion=" + puntuacion + ", direccion=" + direccion + ", getNombre()=" + getNombre()
-                + ", getId()=" + getId() + ", getFechaNacimiento()=" + getFechaNacimiento() + ", getCorreo()="
-                + getCorreo() + "]";
+        return String.format("👤 [Vendedor] %s\n   Puntuación: %d | Dirección: %s",
+                super.toString(), puntuacion, direccion);
     }
     
     

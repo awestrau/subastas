@@ -1,0 +1,243 @@
+@startuml
+
+skinparam linetype ortho
+skinparam nodesep 100
+skinparam ranksep 100
+skinparam classAttributeIconSize 0
+skinparam packageStyle rectangle
+
+package cr.ac.ucenfotec {
+    class Main {
+        + {static} main(args: String[])
+    }
+}
+
+package cr.ac.ucenfotec.ui {
+    class Menu {
+        # gestorUsuarios: GestorUsuarios
+        # scanner: Scanner
+        # gestorSubastas: GestorSubastas
+        + Menu()
+        + iniciar()
+        - verificarModerador()
+        - mostrarMenu()
+        - procesarOpcion(opcion: int)
+        - registrarUsuario(tipoForzado: int)
+        - listarUsuarios()
+        - leerEntero(mensaje: String): int
+        - leerFecha(mensaje: String): LocalDate
+        - crearSubasta()
+        - listarSubastas()
+        - crearOferta()
+        - listarOferta()
+    }
+}
+
+package cr.ac.ucenfotec.bl.logic {
+    class GestorSubastas {
+        # {static} listaSubastas: ArrayList<Subasta>
+        + GestorSubastas()
+        + crearSubasta(creador: Coleccionista, precioMinimo: double, nombresObjetos: ArrayList<String>, descripciones: ArrayList<String>)
+        + crearSubasta(creador: Vendedor, precioMinimo: double, nombresObjetos: ArrayList<String>, descripciones: ArrayList<String>)
+        + realizaroferta(oferente: Coleccionista, subasta: Subasta, monto: double)
+        + crearOrdenAdjudicacion()
+        + listarSubastas(): ArrayList<Subasta>
+    }
+
+    class GestorUsuarios {
+        # {static} usuarios: ArrayList<Usuario>
+        + GestorUsuarios()
+        + existeModerador(): boolean
+        - validarEdadConfiguracion(fechaNacimiento: LocalDate)
+        + registrarModerador(nombre: String, id: String, password: String, fechaNacimiento: LocalDate, correo: String)
+        + registrarVendedor(nombre: String, id: String, password: String, fechaNacimiento: LocalDate, correo: String, puntuacionVendedor: int, direccion: String)
+        + registrarColeccionista(nombre: String, id: String, password: String, fechaNacimiento: LocalDate, correo: String, puntuacionColeccionista: int, direccion: String)
+        + listarUsuarios(): ArrayList<Usuario>
+    }
+}
+
+package cr.ac.ucenfotec.bl.entities {
+    enum EstadoSubasta <<enumeration>> {
+        Programada
+        Abierta
+        Cerrada
+    }
+
+    class Objeto {
+        # nombre: String
+        # descripcion: String
+        # estado: String
+        # fechaCompra: LocalDate
+        # antiguedad: String
+        + Objeto(nombre: String, descripcion: String, estado: String, fechaCompra: LocalDate, antiguedad: String)
+        + Objeto(nombre: String, descripcion: String)
+        + getNombre(): String
+        + setNombre(nombre: String)
+        + getDescripcion(): String
+        + setDescripcion(descripcion: String)
+        + getEstado(): String
+        + setEstado(estado: String)
+        + getFechaCompra(): LocalDate
+        + setFechaCompra(fechaCompra: LocalDate)
+        + getAntiguedad(): String
+        + setAntiguedad(antiguedad: String)
+        + toString(): String
+    }
+
+    class Oferta {
+        # oferente: Coleccionista
+        # puntuacionOferente: double
+        # precioOfertado: double
+        + Oferta()
+        + Oferta(oferente: Coleccionista, precioOfertado: double)
+        + getOferente(): Coleccionista
+        + getPuntuacionOferente(): double
+        + getPrecioOfertado(): double
+        + setOferente(oferente: Coleccionista)
+        + setPuntuacionOferente(puntuacionOferente: double)
+        + setPrecioOfertado(precioOfertado: double)
+        + toString(): String
+    }
+
+    class OrdenAdjudicacion {
+        # nombreGanador: String
+        # fechaOrden: LocalDateTime
+        # objetosAdjudicados: ArrayList<Objeto>
+        # precioTotal: double
+        + OrdenAdjudicacion()
+        + OrdenAdjudicacion(nombreGanador: String, objetosAdjudicados: ArrayList<Objeto>, precioTotal: double)
+        + getNombreGanador(): String
+        + getFechaOrden(): LocalDateTime
+        + getObjetosAdjudicados(): ArrayList<Objeto>
+        + getPrecioTotal(): double
+        + setNombreGanador(nombreGanador: String)
+        + setFechaOrden(fechaOrden: LocalDateTime)
+        + setObjetosAdjudicados(objetosAdjudicados: ArrayList<Objeto>)
+        + setPrecioTotal(precioTotal: double)
+        + toString(): String
+    }
+
+    class Subasta {
+        # fechaVencimiento: LocalDateTime
+        # TiempoParaVencer: Duration
+        # creador: Usuario
+        # calificacionCreador: double
+        # precioMinimo: double
+        # objetosSubastados: ArrayList<Objeto>
+        # vigente: boolean
+        # oferta: Oferta
+        # listaOfertas: ArrayList<Oferta>
+        + Subasta(creador: Coleccionista, precioMinimo: double, objetosSubastados: ArrayList<Objeto>)
+        + Subasta(creador: Vendedor, precioMinimo: double, objetosSubastados: ArrayList<Objeto>)
+        + Subasta()
+        + getFechaVencimiento(): LocalDateTime
+        + getTiempoParaVencer(): Duration
+        + getCreador(): Usuario
+        + getCalificacionCreador(): double
+        + getPrecioMinimo(): double
+        + getObjetosSubastados(): ArrayList<Objeto>
+        + isVigente(): boolean
+        + getListaOfertas(): ArrayList<Oferta>
+        + setFechaVencimiento(fechaVencimiento: LocalDateTime)
+        + setTiempoParaVencer(tiempoParaVencer: Duration)
+        + setCreador(creador: Usuario)
+        + setCalificacionCreador(calificacionCreador: double)
+        + setPrecioMinimo(precioMinimo: double)
+        + setObjetosSubastados(objetosSubastados: ArrayList<Objeto>)
+        + setEstado(estado: boolean)
+        + toString(): String
+        + agregarOferta(oferente: Coleccionista, monto: Double)
+        + obtenerOfertaGanadora(): Oferta
+        + actualizarVigencia()
+    }
+}
+
+package cr.ac.ucenfotec.bl.entities.usuarios {
+    abstract class Usuario {
+        # nombre: String
+        # id: String
+        # fechaNacimiento: LocalDate
+        # password: String
+        # correo: String
+        + Usuario()
+        + Usuario(nombre: String, id: String, password: String, fechaNacimiento: LocalDate, correo: String)
+        + getNombre(): String
+        + setNombre(nombre: String)
+        + getId(): String
+        + setId(id: String)
+        + getFechaNacimiento(): LocalDate
+        + setFechaNacimiento(fechaNacimiento: LocalDate)
+        + getEdad(): int
+        + getPassword(): String
+        + setPassword(password: String)
+        + getCorreo(): String
+        + setCorreo(correo: String)
+        + toString(): String
+    }
+
+    class Coleccionista {
+        # puntuacion: int
+        # direccion: String
+        # intereses: ArrayList<String>
+        # objetos: ArrayList<Objeto>
+        + Coleccionista()
+        + Coleccionista(nombre: String, id: String, password: String, fechaNacimiento: LocalDate, correo: String, puntuacionColeccionista: int, direccion: String)
+        + getPuntuacion(): int
+        + setPuntuacion(puntuacion: int)
+        + getDireccion(): String
+        + setDireccion(direccion: String)
+        + getIntereses(): ArrayList<String>
+        + agregarIntereses(interes: String)
+        + getObjetos(): ArrayList<Objeto>
+        + agregarObjetos(objeto: Objeto)
+        + toString(): String
+    }
+
+    class Moderador {
+        + Moderador()
+        + Moderador(nombre: String, id: String, password: String, fechaNacimiento: LocalDate, correo: String)
+        + toString(): String
+    }
+
+    class Vendedor {
+        # puntuacion: int
+        # direccion: String
+        + Vendedor()
+        + Vendedor(nombre: String, id: String, password: String, fechaNacimiento: LocalDate, correo: String, puntuacionVendedor: int, direccion: String)
+        + getPuntuacion(): int
+        + setPuntuacion(puntuacionVendedor: int)
+        + getDireccion(): String
+        + setDireccion(direccion: String)
+        + toString(): String
+    }
+}
+
+' --- Relaciones y Layout ---
+
+Main ..> Menu : inicia
+
+Menu --> GestorUsuarios
+Menu --> GestorSubastas
+
+GestorUsuarios o-- Usuario
+
+GestorSubastas *-- Subasta
+GestorSubastas ..> OrdenAdjudicacion : crea
+GestorSubastas ..> Oferta : administra
+
+Usuario <|-- Coleccionista
+Usuario <|-- Moderador
+Usuario <|-- Vendedor
+
+Subasta "1" *-- "*" Oferta : listaOfertas
+Subasta "*" *-left- "*" Objeto : objetosSubastados
+Subasta -down-> Usuario : creador
+Subasta ..> EstadoSubasta
+
+Oferta -down-> Coleccionista : oferente
+
+OrdenAdjudicacion "1" *-left- "*" Objeto : objetos
+
+Coleccionista "1" *-right- "*" Objeto : objetos
+
+@enduml

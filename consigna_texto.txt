@@ -1,0 +1,1097 @@
+Universidad CENFOTEC
+Escuela de Software
+Código del curso: SOFT-04.
+Nombre del curso: Programación Orientada a Objetos.
+Sección: SCV0.
+Periodo: C1-2026.
+Docente facilitador: Romario Salas Cerdas.
+
+CONSIGNA DEL SEGUNDO AVANCE DE LA APLICACIÓN DE SOFTWARE
+1. Datos generales de la actividad
+Tipo de actividad:
+
+Avance de proyecto.
+
+Fecha de entrega:
+
+10 de abril del 2026,
+Valor porcentual: 15%.
+11:59pm.
+
+Formato de
+entrega:
+
+Archivo .pdf, commit de
+código en repositorio de Puntaje total:
+GitHub.
+
+Individual: No.
+
+Grupal: Sí.
+
+90.
+
+2. Instrucciones generales
+1. Lea cuidadosamente las instrucciones de la actividad. En caso de tener alguna duda,
+puede consultar con su docente.
+2. Esta actividad se desarrolla de manera grupal. Cualquier intento de plagio será
+sancionado de acuerdo con el reglamento académico vigente.
+3. Al completar la actividad, un representante del grupo debe realizar el commit del
+código a GitHub y subir un archivo .pdf a la plataforma Moodle en el tiempo y espacio
+indicado por el docente. El archivo .pdf debe contener el diagrama de clases UML. El
+repositorio debe incluir todo el código .java.
+3. Objetivos o competencias del curso que se evaluarán en la actividad de
+
+aprendizaje
+Objetivo general o
+competencia del curso
+
+Objetivos específicos que
+
+Diseña una aplicación de software con el paradigma
+orientado a objetos, usando relaciones entre objetos y
+clases, modelados de aplicaciones, bases de datos e
+interfaces.
+
+
+Crea un repositorio de la aplicación en una
+1
+
+
+
+
+
+
+se evalúan
+
+
+
+
+
+
+
+plataforma de control de versiones en línea para
+tener una versión inicial del software.
+Confecciona el diagrama de lenguaje unificado de
+modelado (UML), incluyendo las clases, métodos y
+atributos de los objetos.
+Elabora una estructura básica del código en un
+lenguaje de alto nivel, que contiene los paquetes de
+la capa lógica y el diseño de interfaz.
+Elabora el diagrama de lenguaje unificado final
+(UML),
+incluyendo
+asociación,
+agregación,
+composición y herencia.
+Desarrolla un repositorio de la aplicación en la
+plataforma para la lógica de las clases, incluyendo
+los paquetes, lógica de negocio y entidades.
+Verifica la funcionalidad de la aplicación, utilizando
+como mínimo los dos casos de prueba.
+Realiza una explicación de la aplicación y contesta
+de forma correcta las preguntas propuestas por el
+docente.
+Incorpora la retroalimentación que el docente brindó
+a los diferentes avances.
+
+4. Descripción de la actividad
+En el segundo avance de la aplicación de software, los grupos deben desarrollar lo
+presentado en el primer avance aplicando el resto de los contenidos del paradigma de
+programación orientada a objetos vistos desde entonces, hasta implementar la funcionalidad
+completa de la aplicación tal cual se describe en la consigna del primer avance (i.e., debe
+demostrarse una aplicación plena de los conceptos de abstracción, encapsulamiento,
+polimorfismo, relaciones entre objetos y entre clases y modularidad). No obstante, la
+aplicación desarrollada para este entregable todavía no debe incluir la implementación de los
+patrones de diseño MVC y DAO, ni tampoco la persistencia de los datos en la base de datos
+MySQL. El diagrama de clases UML presentado en el primer avance debe ser modificado y
+actualizado según corresponda para reflejar los nuevos mecanismos de POO aplicados en el
+nuevo avance (e.g., clases abstractas, interfaces, modularidad, &c.).
+Entregables:
+1. Se debe incluir el código fuente completo de todas las clases desarrolladas.
+2. Deben contar con un repositorio en GitHub para el proyecto de la interfaz gráfica y
+para el proyecto de la lógica de negocio.
+
+2
+
+3. Se debe incluir el diagrama UML de la capa lógica que refleje correctamente el diseño
+orientado a objetos implementado.
+4. Se debe incluir Javadoc para todas las librerías generadas por el estudiante.
+5. El proyecto debe implementar la arquitectura definida en el curso, respetando la
+separación entre capas.
+6. Código legible y documentado (atributos privados, getters y setters, uso de toString()
+cuando aplique).
+
+5. Rúbrica
+Esta actividad de aprendizaje será evaluada mediante la siguiente rúbrica:
+Criterio de
+
+Insuficiente (1
+
+Aceptable (2
+
+Bueno (3.5
+
+Excelente (5
+
+evaluación
+
+punto)
+
+puntos)
+
+puntos)
+
+puntos)
+
+Modelado
+
+El diagrama UML
+
+El diagrama
+
+El diagrama
+
+El diagrama UML
+
+orientado a
+
+es inexistente o
+
+incluye los
+
+representa
+
+es claro, completo
+
+objetos y
+
+presenta errores
+
+elementos
+
+correctamente
+
+y correcto,
+
+diagrama UML
+
+graves de
+
+principales, pero
+
+las clases y la
+
+representando
+
+notación y diseño.
+
+presenta
+
+mayoría de las
+
+fielmente el
+
+inconsistencias en
+
+relaciones con
+
+diseño orientado
+
+relaciones o
+
+notación
+
+a objetos del
+
+definición de
+
+adecuada.
+
+sistema.
+
+métodos.
+Encapsulamiento
+
+Los atributos no
+
+Se utiliza
+
+Los atributos
+
+Todos los
+
+de atributos
+
+están
+
+encapsulamiento
+
+están
+
+atributos están
+
+encapsulados o
+
+de forma parcial o
+
+correctamente
+
+correctamente
+
+se manejan de
+
+inconsistente.
+
+encapsulados,
+
+encapsulados,
+
+con leves
+
+con uso
+
+detalles por
+
+consistente de
+
+mejorar.
+
+modificadores de
+
+forma incorrecta.
+
+acceso y
+getters/setters.
+Constructor por
+
+No se implementa
+
+El constructor por
+
+El constructor
+
+El constructor por
+
+defecto
+
+el constructor por
+
+defecto existe,
+
+por defecto está
+
+defecto está
+
+defecto o su
+
+pero presenta
+
+correctamente
+
+correctamente
+
+implementación
+
+errores o uso
+
+implementado y
+
+implementado y
+
+es incorrecta.
+
+limitado.
+
+funcional.
+
+se utiliza de forma
+coherente dentro
+del diseño.
+
+Constructor
+
+No se implementa
+
+El constructor
+
+El constructor
+
+El constructor
+
+3
+
+general (con
+
+el constructor
+
+general existe,
+
+general asigna
+
+general asigna
+
+parámetros)
+
+general o no
+
+pero no asigna
+
+correctamente la
+
+correctamente
+
+asigna
+
+correctamente
+
+mayoría de los
+
+todos los
+
+correctamente los
+
+todos los
+
+atributos.
+
+atributos y refleja
+
+atributos.
+
+atributos.
+
+un diseño claro y
+consistente.
+
+Implementación
+
+No se implementa
+
+El método
+
+El método
+
+El método
+
+del método
+
+el método
+
+toString() existe,
+
+toString()
+
+toString() está
+
+toString()
+
+toString() o no
+
+pero muestra
+
+muestra
+
+correctamente
+
+cumple su
+
+información
+
+información
+
+implementado y
+
+propósito.
+
+incompleta o poco
+
+relevante y bien
+
+facilita la
+
+clara.
+
+estructurada.
+
+visualización clara
+del estado del
+objeto.
+
+Implementación
+
+Las relaciones no
+
+Las relaciones
+
+Las relaciones
+
+Todas las
+
+de relaciones
+
+están
+
+existen, pero
+
+están
+
+relaciones están
+
+entre clases
+
+implementadas o
+
+presentan
+
+correctamente
+
+correctamente
+
+no coinciden con
+
+inconsistencias
+
+implementadas
+
+implementadas y
+
+el modelo
+
+con el diseño
+
+en su mayoría.
+
+reflejan fielmente
+
+definido.
+
+UML.
+
+Arquitectura por
+
+No se respeta la
+
+Se intenta aplicar
+
+La arquitectura
+
+La arquitectura
+
+capas
+
+arquitectura
+
+la arquitectura,
+
+por capas está
+
+por capas se
+
+definida y se
+
+pero existen
+
+bien aplicada,
+
+implementa
+
+mezclan
+
+errores en la
+
+con pequeños
+
+correctamente,
+
+responsabilidades
+
+separación de
+
+detalles por
+
+con separación
+
+entre capas.
+
+responsabilidades.
+
+mejorar.
+
+clara y estricta
+
+el diseño UML.
+
+entre capas.
+Instanciación de
+
+La interfaz gráfica
+
+La interfaz gráfica
+
+La interfaz
+
+La interfaz gráfica
+
+objetos de
+
+instancia
+
+instancia algunos
+
+gráfica instancia
+
+no instancia
+
+negocio en la
+
+directamente
+
+objetos de
+
+mínimamente
+
+objetos de
+
+interfaz gráfica
+
+objetos de
+
+negocio, aunque
+
+objetos de
+
+negocio; toda la
+
+(UI)
+
+negocio de forma
+
+existe un intento
+
+negocio,
+
+creación y gestión
+
+reiterada y sin
+
+parcial de delegar
+
+existiendo pocos
+
+de objetos se
+
+respetar la
+
+responsabilidades.
+
+casos
+
+realiza
+
+incorrectos.
+
+exclusivamente
+
+arquitectura
+definida.
+
+en la capa lógica,
+respetando
+estrictamente la
+arquitectura
+definida.
+
+4
+
+Estructura de
+
+La estructura de
+
+La estructura de
+
+La estructura de
+
+La estructura de
+
+paquetes
+
+paquetes es
+
+paquetes existe,
+
+paquetes es
+
+paquetes es
+
+incorrecta o no
+
+pero presenta
+
+clara y en su
+
+clara, ordenada y
+
+refleja la
+
+inconsistencias o
+
+mayoría
+
+refleja
+
+arquitectura
+
+desorden.
+
+coherente con la
+
+correctamente la
+
+arquitectura.
+
+arquitectura del
+
+definida.
+
+sistema.
+Registro de
+
+La opción no
+
+Permite registrar
+
+Permite registrar
+
+Permite registrar
+
+usuarios (menú)
+
+funciona o no
+
+usuarios, pero con
+
+usuarios
+
+usuarios
+
+permite registrar
+
+errores de
+
+correctamente
+
+correctamente,
+
+usuarios
+
+validación o flujo.
+
+en la mayoría de
+
+aplicando
+
+los casos.
+
+validaciones y
+
+correctamente.
+
+reglas de forma
+consistente.
+Listado de
+
+No se listan los
+
+Se listan los
+
+Se listan
+
+El listado de
+
+usuarios (menú)
+
+usuarios o la
+
+usuarios, pero con
+
+correctamente
+
+usuarios es claro,
+
+información es
+
+información
+
+los usuarios con
+
+completo y bien
+
+incorrecta.
+
+incompleta o
+
+información
+
+presentado.
+
+desordenada.
+
+relevante.
+
+Creación de
+
+No permite crear
+
+Permite crear
+
+Permite crear
+
+Permite crear
+
+subastas (menú)
+
+subastas o
+
+subastas, pero no
+
+subastas
+
+subastas
+
+incumple reglas
+
+valida
+
+aplicando la
+
+aplicando
+
+básicas.
+
+correctamente
+
+mayoría de las
+
+correctamente
+
+todas las reglas.
+
+reglas del
+
+todas las reglas
+
+sistema.
+
+definidas.
+
+Listado de
+
+No se listan las
+
+Se listan las
+
+Se listan
+
+El listado de
+
+subastas (menú)
+
+subastas o la
+
+subastas, pero
+
+correctamente
+
+subastas es claro,
+
+información es
+
+con información
+
+las subastas con
+
+completo y refleja
+
+incorrecta.
+
+incompleta o poco
+
+información
+
+correctamente el
+
+clara.
+
+relevante.
+
+estado del
+sistema.
+
+Creación de
+
+No permite crear
+
+Permite crear
+
+Permite crear
+
+Permite crear
+
+ofertas (menú)
+
+ofertas o
+
+ofertas, pero no
+
+ofertas
+
+ofertas aplicando
+
+incumple reglas
+
+valida
+
+aplicando la
+
+correctamente
+
+básicas del
+
+correctamente
+
+mayoría de las
+
+todas las reglas
+
+sistema.
+
+todas las
+
+reglas del
+
+definidas.
+
+restricciones.
+
+sistema.
+
+Listado de
+
+No se listan las
+
+Se listan las
+
+Se listan
+
+El listado de
+
+ofertas (menú)
+
+ofertas o la
+
+ofertas, pero con
+
+correctamente
+
+ofertas es claro,
+
+información es
+
+información
+
+las ofertas con
+
+completo y
+
+5
+
+incorrecta.
+
+incompleta o
+
+información
+
+consistente con el
+
+desordenada.
+
+relevante.
+
+estado del
+sistema.
+
+Persistencia en
+
+No se implementa
+
+Se utiliza
+
+Se implementa
+
+La persistencia
+
+memoria con
+
+correctamente la
+
+persistencia en
+
+correctamente la
+
+en memoria está
+
+`ArrayList`
+
+persistencia en
+
+memoria, pero con
+
+persistencia en
+
+correctamente
+
+memoria.
+
+uso limitado o
+
+memoria
+
+implementada,
+
+incorrecto de las
+
+utilizando
+
+con uso claro,
+
+estructuras de
+
+ArrayList, con
+
+ordenado y
+
+datos.
+
+manejo
+
+consistente de
+
+adecuado de los
+
+ArrayList.
+
+datos.
+Calidad,
+
+Código
+
+Código funcional,
+
+Código legible y
+
+Código claro,
+
+legibilidad y
+
+desordenado,
+
+pero con
+
+bien
+
+ordenado y
+
+documentación
+
+poco legible y sin
+
+problemas de
+
+documentado,
+
+completamente
+
+del código
+
+documentación.
+
+legibilidad o
+
+con buenas
+
+documentado,
+
+documentación
+
+prácticas
+
+incluyendo
+
+incompleta.
+
+básicas.
+
+Javadoc y
+buenas prácticas.
+
+Cumplimiento de
+
+No cumple con
+
+Cumple
+
+Cumple con la
+
+Cumple
+
+entregables y
+
+los entregables
+
+parcialmente con
+
+mayoría de los
+
+completamente
+
+reglas de la
+
+mínimos o el
+
+los entregables
+
+entregables,
+
+con todos los
+
+consigna
+
+proyecto no
+
+solicitados.
+
+formatos,
+
+entregables,
+
+restricciones y
+
+formatos,
+
+reglas
+
+restricciones y
+
+establecidas.
+
+reglas
+
+compila/ejecuta.
+
+establecidas en la
+consigna.
+
+6
+
+

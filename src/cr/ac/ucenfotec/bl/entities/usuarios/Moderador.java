@@ -12,7 +12,6 @@ public class Moderador extends Usuario {
 
     @Override
     public String toString() {
-        return "Moderador [getNombre()=" + getNombre() + ", getId()=" + getId() + ", getFechaNacimiento()="
-                + getFechaNacimiento() + ", getCorreo()=" + getCorreo() + "]";
+        return String.format("🛡️ [Moderador] %s", super.toString());
     }
 }

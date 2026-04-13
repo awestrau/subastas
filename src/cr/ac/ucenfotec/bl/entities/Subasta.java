@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class Subasta {
 
-    //Atributos
+    // Atributos
     private LocalDateTime fechaVencimiento;
     private Duration TiempoParaVencer;
     private Usuario creador;
@@ -21,26 +21,28 @@ public class Subasta {
     private Oferta oferta;
     private ArrayList<Oferta> listaOfertas;
 
-    //Constructores
-    public Subasta(Coleccionista creador, double precioMinimo, ArrayList<Objeto> objetosSubastados) throws Exception{
-        if (objetosSubastados == null || objetosSubastados.isEmpty()){
+    // Constructores
+    public Subasta(Coleccionista creador, double precioMinimo, ArrayList<Objeto> objetosSubastados) throws Exception {
+        if (objetosSubastados == null || objetosSubastados.isEmpty()) {
             throw new Exception("Esta subasta no tiene objetos");
         }
-        for (Objeto objeto: objetosSubastados){
+        for (Objeto objeto : objetosSubastados) {
             boolean pertenece = false;
 
-            if (objetosSubastados == null || objetosSubastados.isEmpty()){
-                throw new Exception("Esta subasta no tiene objetos");
-            }
-            for(Objeto objColeccion : creador.getObjetos()){
-                if(objColeccion.getNombre().equals(objeto.getNombre())){
+            for (Objeto objColeccion : creador.getObjetos()) {
+                if (objColeccion.getNombre().equals(objeto.getNombre())) {
                     pertenece = true;
                     break;
                 }
             }
+
+            if (!pertenece) {
+                throw new Exception(
+                        "El objeto '" + objeto.getNombre() + "' no pertenece al Coleccionista " + creador.getNombre());
+            }
         }
         this.fechaVencimiento = LocalDateTime.now().plusDays(1);
-        this.TiempoParaVencer = Duration.between(LocalDateTime.now(), fechaVencimiento);;
+        this.TiempoParaVencer = Duration.between(LocalDateTime.now(), fechaVencimiento);
         this.creador = creador;
         this.calificacionCreador = creador.getPuntuacion();
         this.precioMinimo = precioMinimo;
@@ -49,12 +51,13 @@ public class Subasta {
         this.listaOfertas = new ArrayList<>();
     }
 
-    public Subasta(Vendedor creador, double precioMinimo, ArrayList<Objeto> objetosSubastados) throws Exception{
-        if (objetosSubastados == null || objetosSubastados.isEmpty()){
+    public Subasta(Vendedor creador, double precioMinimo, ArrayList<Objeto> objetosSubastados) throws Exception {
+        if (objetosSubastados == null || objetosSubastados.isEmpty()) {
             throw new Exception("Esta subasta no tiene objetos");
         }
         this.fechaVencimiento = LocalDateTime.now().plusDays(15);
-        TiempoParaVencer = Duration.between(LocalDateTime.now(), fechaVencimiento);;
+        TiempoParaVencer = Duration.between(LocalDateTime.now(), fechaVencimiento);
+
         this.creador = creador;
         this.calificacionCreador = creador.getPuntuacion();
         this.precioMinimo = precioMinimo;
@@ -66,8 +69,7 @@ public class Subasta {
     public Subasta() {
     }
 
-
-    //Getters
+    // Getters
     public LocalDateTime getFechaVencimiento() {
         return fechaVencimiento;
     }
@@ -101,7 +103,7 @@ public class Subasta {
         return listaOfertas;
     }
 
-    //Setters
+    // Setters
     public void setFechaVencimiento(LocalDateTime fechaVencimiento) {
         this.fechaVencimiento = fechaVencimiento;
     }
@@ -130,27 +132,20 @@ public class Subasta {
         this.vigente = estado;
     }
 
-    //toString
+    // toString
+    @Override
     public String toString() {
-        return "Subastas{" +
-                "fechaVencimiento=" + fechaVencimiento +
-                ", TiempoParaVencer=" + TiempoParaVencer +
-                ", creador=" + creador.getNombre() +
-                ", calificacionCreador=" + calificacionCreador +
-                ", precioMinimo=" + precioMinimo +
-                ", objetosSubastados=" + objetosSubastados +
-                ", estado=" + vigente +
-                ", oferta=" + oferta +
-                ", listaOfertas=" + listaOfertas +
-                '}';
+        String estado = vigente ? "🟢 VIGENTE" : "🔴 CERRADA";
+        return String.format("🔨 Subasta [%s] | Creador: %s | Precio Base: $%.2f\n   Vence: %s | En lista: %d objetos, %d ofertas", 
+                estado, creador.getNombre(), precioMinimo, fechaVencimiento, objetosSubastados.size(), listaOfertas.size());
     }
 
-    public void agregarOferta(Coleccionista oferente, Double monto){
+    public void agregarOferta(Coleccionista oferente, Double monto) {
         oferta = new Oferta(oferente, monto);
         this.listaOfertas.add(oferta);
     }
 
-    public Oferta obtenerOfertaGanadora(){
+    public Oferta obtenerOfertaGanadora() {
         Oferta mejor = null;
 
         for (Oferta ofertaComparar : listaOfertas) {
@@ -162,11 +157,12 @@ public class Subasta {
         return mejor;
     }
 
-    public void actualizarVigencia(){
-        if (fechaVencimiento.isAfter(LocalDateTime.now())){
+    public void actualizarVigencia() {
+        if (fechaVencimiento.isBefore(LocalDateTime.now())) {
             vigente = false;
             TiempoParaVencer = Duration.ZERO;
         } else {
+            vigente = true;
             TiempoParaVencer = Duration.between(LocalDateTime.now(), fechaVencimiento);
         }
     }

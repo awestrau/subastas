@@ -71,8 +71,8 @@ public abstract class Usuario {
 
     @Override
     public String toString() {
-        return "Usuario [nombre=" + nombre + ", id=" + id + ", fechaNacimiento=" + fechaNacimiento + ", password="
-                + password + ", correo=" + correo + "]";
+        return String.format("Nombre: %s | ID: %s | Fecha Nac.: %s | Correo: %s", 
+                nombre, id, fechaNacimiento, correo);
     }
 
     

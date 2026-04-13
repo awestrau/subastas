@@ -58,12 +58,9 @@ public class OrdenAdjudicacion {
     }
 
     //ToString
+    @Override
     public String toString() {
-        return "OrdenAdjudicacion{" +
-                "nombreGanador='" + nombreGanador + '\'' +
-                ", fechaOrden=" + fechaOrden +
-                ", objetosAdjudicados=" + objetoAdjudicados +
-                ", precioTotal=" + precioTotal +
-                '}';
+        return String.format("🏆 Orden de Adjudicación | Ganador: %s | Total: $%.2f | Fecha: %s\n   Objetos adjudicados: %d", 
+                nombreGanador, precioTotal, fechaOrden, objetoAdjudicados.size());
     }
 }

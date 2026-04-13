@@ -10,10 +10,9 @@ import java.time.Period;
 import java.util.ArrayList;
 
 public class GestorUsuarios {
-    private static ArrayList<Usuario> usuarios;
+    private static ArrayList<Usuario> usuarios = new ArrayList<>();
 
     public GestorUsuarios() {
-        usuarios = new ArrayList<>();
     }
 
     public boolean existeModerador() {
@@ -35,7 +34,8 @@ public class GestorUsuarios {
         }
     }
 
-    public void registrarModerador(String nombre, String id, String password, LocalDate fechaNacimiento, String correo) throws Exception {
+    public void registrarModerador(String nombre, String id, String password, LocalDate fechaNacimiento, String correo)
+            throws Exception {
         if (existeModerador()) {
             throw new Exception("Ya existe un moderador registrado en el sistema.");
         }
@@ -44,15 +44,18 @@ public class GestorUsuarios {
         usuarios.add(nModerador);
     }
 
-    public void registrarVendedor(String nombre, String id, String password, LocalDate fechaNacimiento, String correo, int puntuacionVendedor, String direccion) throws Exception {
+    public void registrarVendedor(String nombre, String id, String password, LocalDate fechaNacimiento, String correo,
+            int puntuacionVendedor, String direccion) throws Exception {
         validarEdadConfiguracion(fechaNacimiento);
         Vendedor nVendedor = new Vendedor(nombre, id, password, fechaNacimiento, correo, puntuacionVendedor, direccion);
         usuarios.add(nVendedor);
     }
 
-    public void registrarColeccionista(String nombre, String id, String password, LocalDate fechaNacimiento, String correo, int puntuacionColeccionista, String direccion) throws Exception {
+    public void registrarColeccionista(String nombre, String id, String password, LocalDate fechaNacimiento,
+            String correo, int puntuacionColeccionista, String direccion) throws Exception {
         validarEdadConfiguracion(fechaNacimiento);
-        Coleccionista nColeccionista = new Coleccionista(nombre, id, password, fechaNacimiento, correo, puntuacionColeccionista, direccion);
+        Coleccionista nColeccionista = new Coleccionista(nombre, id, password, fechaNacimiento, correo,
+                puntuacionColeccionista, direccion);
         usuarios.add(nColeccionista);
     }
 

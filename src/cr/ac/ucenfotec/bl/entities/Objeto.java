@@ -69,7 +69,7 @@ public class Objeto {
 
     @Override
     public String toString() {
-        return "Objeto [nombre=" + nombre + ", descripcion=" + descripcion + ", estado=" + estado + ", fechaCompra="
-                + fechaCompra + ", antiguedad=" + antiguedad + "]";
+        return String.format("📦 Objeto: %s | Estado: %s | Antigüedad: %s\n   Descripción: %s", 
+                nombre, estado, antiguedad, descripcion);
     }
 }

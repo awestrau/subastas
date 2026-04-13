@@ -51,11 +51,9 @@ public class Oferta {
     }
 
     //ToString
+    @Override
     public String toString() {
-        return "Oferta{" +
-                "nombreOferente='" + oferente.getNombre() + '\'' +
-                ", puntuacionOferente=" + puntuacionOferente +
-                ", precioOfertado=" + precioOfertado +
-                '}';
+        return String.format("💵 Oferta de %s: $%.2f (Puntuación Oferente: %.1f)", 
+                oferente.getNombre(), precioOfertado, puntuacionOferente);
     }
 }
