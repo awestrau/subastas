@@ -230,14 +230,14 @@ Usuario <|-- Moderador
 Usuario <|-- Vendedor
 
 Subasta "1" *-- "*" Oferta : listaOfertas
-Subasta "*" *-left- "*" Objeto : objetosSubastados
-Subasta -down-> Usuario : creador
+Subasta "*" *-- "*" Objeto : objetosSubastados
+Subasta --> Usuario : creador
 Subasta ..> EstadoSubasta
 
-Oferta -down-> Coleccionista : oferente
+Oferta --> Coleccionista : oferente
 
-OrdenAdjudicacion "1" *-left- "*" Objeto : objetos
+OrdenAdjudicacion "1" *-- "*" Objeto : objetos
 
-Coleccionista "1" *-right- "*" Objeto : objetos
+Coleccionista "1" *-- "*" Objeto : objetos
 
 @enduml
