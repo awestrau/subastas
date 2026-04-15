@@ -14,45 +14,40 @@ package cr.ac.ucenfotec {
 
 package cr.ac.ucenfotec.ui {
     class Menu {
-        # gestorUsuarios: GestorUsuarios
-        # scanner: Scanner
-        # gestorSubastas: GestorSubastas
-        + Menu()
-        + iniciar()
-        - verificarModerador()
-        - mostrarMenu()
-        - procesarOpcion(opcion: int)
-        - registrarUsuario(tipoForzado: int)
-        - listarUsuarios()
-        - leerEntero(mensaje: String): int
-        - leerFecha(mensaje: String): LocalDate
-        - crearSubasta()
-        - listarSubastas()
-        - crearOferta()
-        - listarOferta()
+        - {static} scanner: Scanner
+        + {static} iniciar()
+        - {static} verificarModerador()
+        - {static} mostrarMenu()
+        - {static} procesarOpcion(opcion: int)
+        - {static} registrarUsuario(tipoForzado: int)
+        - {static} listarUsuarios()
+        - {static} leerEntero(mensaje: String): int
+        - {static} leerFecha(mensaje: String): LocalDate
+        - {static} crearSubasta()
+        - {static} listarSubastas()
+        - {static} crearOferta()
+        - {static} listarOferta()
     }
 }
 
 package cr.ac.ucenfotec.bl.logic {
     class GestorSubastas {
-        # {static} listaSubastas: ArrayList<Subasta>
-        + GestorSubastas()
-        + crearSubasta(creador: Coleccionista, precioMinimo: double, nombresObjetos: ArrayList<String>, descripciones: ArrayList<String>)
-        + crearSubasta(creador: Vendedor, precioMinimo: double, nombresObjetos: ArrayList<String>, descripciones: ArrayList<String>)
-        + realizaroferta(oferente: Coleccionista, subasta: Subasta, monto: double)
-        + crearOrdenAdjudicacion()
-        + listarSubastas(): ArrayList<Subasta>
+        - {static} listaSubastas: ArrayList<Subasta>
+        + {static} crearSubasta(creador: Coleccionista, precioMinimo: double, nombresObjetos: ArrayList<String>, descripciones: ArrayList<String>)
+        + {static} crearSubasta(creador: Vendedor, precioMinimo: double, nombresObjetos: ArrayList<String>, descripciones: ArrayList<String>)
+        + {static} realizaroferta(oferente: Coleccionista, subasta: Subasta, monto: double)
+        + {static} crearOrdenAdjudicacion()
+        + {static} listarSubastas(): ArrayList<Subasta>
     }
 
     class GestorUsuarios {
-        # {static} usuarios: ArrayList<Usuario>
-        + GestorUsuarios()
-        + existeModerador(): boolean
-        - validarEdadConfiguracion(fechaNacimiento: LocalDate)
-        + registrarModerador(nombre: String, id: String, password: String, fechaNacimiento: LocalDate, correo: String)
-        + registrarVendedor(nombre: String, id: String, password: String, fechaNacimiento: LocalDate, correo: String, puntuacionVendedor: int, direccion: String)
-        + registrarColeccionista(nombre: String, id: String, password: String, fechaNacimiento: LocalDate, correo: String, puntuacionColeccionista: int, direccion: String)
-        + listarUsuarios(): ArrayList<Usuario>
+        - {static} usuarios: ArrayList<Usuario>
+        + {static} existeModerador(): boolean
+        - {static} validarEdadConfiguracion(fechaNacimiento: LocalDate)
+        + {static} registrarModerador(nombre: String, id: String, password: String, fechaNacimiento: LocalDate, correo: String)
+        + {static} registrarVendedor(nombre: String, id: String, password: String, fechaNacimiento: LocalDate, correo: String, puntuacionVendedor: int, direccion: String)
+        + {static} registrarColeccionista(nombre: String, id: String, password: String, fechaNacimiento: LocalDate, correo: String, puntuacionColeccionista: int, direccion: String)
+        + {static} listarUsuarios(): ArrayList<Usuario>
     }
 }
 
@@ -216,8 +211,8 @@ package cr.ac.ucenfotec.bl.entities.usuarios {
 
 Main ..> Menu : inicia
 
-Menu --> GestorUsuarios
-Menu --> GestorSubastas
+Menu ..> GestorUsuarios : usa
+Menu ..> GestorSubastas : usa
 
 GestorUsuarios o-- Usuario
 
