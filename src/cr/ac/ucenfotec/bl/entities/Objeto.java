@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.Period;
 
 public class Objeto {
+    private int id;
     private String nombre;
     private String descripcion;
     private String estado;
@@ -24,7 +25,16 @@ public class Objeto {
         this.estado = "En subasta";
         this.fechaCompra = LocalDate.now();
         this.antiguedad = "Años: " + Period.between(fechaCompra, LocalDate.now()).getYears() + "Meses: " +
-                Period.between(fechaCompra, LocalDate.now()).getMonths() + "Días: " + Period.between(fechaCompra, LocalDate.now()).getDays();
+                Period.between(fechaCompra, LocalDate.now()).getMonths() + "Días: "
+                + Period.between(fechaCompra, LocalDate.now()).getDays();
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getNombre() {
@@ -69,7 +79,7 @@ public class Objeto {
 
     @Override
     public String toString() {
-        return String.format("📦 Objeto: %s | Estado: %s | Antigüedad: %s\n   Descripción: %s", 
-                nombre, estado, antiguedad, descripcion);
+        return String.format("📦 Objeto [%d]: %s | Estado: %s | Antigüedad: %s\n   Descripción: %s",
+                id, nombre, estado, antiguedad, descripcion);
     }
 }

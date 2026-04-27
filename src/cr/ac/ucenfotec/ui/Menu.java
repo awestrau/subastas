@@ -31,7 +31,7 @@ public class Menu {
             mostrarMenu();
             opcion = leerEntero("Seleccione una opción: ");
             procesarOpcion(opcion);
-        } while (opcion != 7);
+        } while (opcion != 10);
     }
 
     private static void verificarModerador() {
@@ -52,7 +52,10 @@ public class Menu {
                 "4. Listado de subastas\n" +
                 "5. Creación de ofertas\n" +
                 "6. Listado de ofertas\n" +
-                "7. Salir"
+                "7. Crear objeto\n" +
+                "8. Listado de objetos\n" +
+                "9. Actualizar estado de objeto\n" +
+                "10. Salir"
         );
     }
 
@@ -77,6 +80,15 @@ public class Menu {
                 listarOferta();
                 break;
             case 7:
+                Controlador.crearObjeto();
+                break;
+            case 8:
+                Controlador.listarObjetos();
+                break;
+            case 9:
+                Controlador.actualizarEstadoObjeto();
+                break;
+            case 10:
                 System.out.println("Saliendo del sistema...");
                 break;
             default:
