@@ -7,53 +7,34 @@ import cr.ac.ucenfotec.bl.entities.usuarios.Coleccionista;
 import cr.ac.ucenfotec.bl.entities.usuarios.Vendedor;
 import java.util.ArrayList;
 
+import cr.ac.ucenfotec.bl.dao.DAOSubasta;
+import java.util.ArrayList;
+
 public class GestorSubastas {
-
-    private static ArrayList<Subasta> listaSubastas = new ArrayList<>();
-
-    // Constructor eliminado ya que todos los métodos son estáticos
     // public GestorSubastas() {
     //     listaSubastas = new ArrayList<>();
     // }
 
-    public static void crearSubasta(
+    public static String crearSubasta(
         Coleccionista creador,
         double precioMinimo,
-        ArrayList<String> nombresObjetos,
-        ArrayList<String> descripciones
+        ArrayList<Objeto> objetosSubastados
     ) throws Exception {
-        ArrayList<Objeto> objetoSubastados = new ArrayList<>();
-
-        for (int i = 0; i < nombresObjetos.size(); i++) {
-            Objeto obj = new Objeto(
-                nombresObjetos.get(i),
-                descripciones.get(i)
-            );
-            objetoSubastados.add(obj);
-        }
-
-        Subasta subasta = new Subasta(creador, precioMinimo, objetoSubastados);
-        listaSubastas.add(subasta);
+        Subasta subasta = new Subasta(creador, precioMinimo, objetosSubastados);
+        return DAOSubasta.insertarSubasta(subasta);
     }
 
-    public static void crearSubasta(
+    public static String crearSubasta(
         Vendedor creador,
         double precioMinimo,
-        ArrayList<String> nombresObjetos,
-        ArrayList<String> descripciones
+        ArrayList<Objeto> objetosSubastados
     ) throws Exception {
-        ArrayList<Objeto> objetoSubastados = new ArrayList<>();
+        Subasta subasta = new Subasta(creador, precioMinimo, objetosSubastados);
+        return DAOSubasta.insertarSubasta(subasta);
+    }
 
-        for (int i = 0; i < nombresObjetos.size(); i++) {
-            Objeto obj = new Objeto(
-                nombresObjetos.get(i),
-                descripciones.get(i)
-            );
-            objetoSubastados.add(obj);
-        }
-
-        Subasta subasta = new Subasta(creador, precioMinimo, objetoSubastados);
-        listaSubastas.add(subasta);
+    public static String actualizarEstadoSubasta(int id, boolean vigente) throws Exception {
+        return DAOSubasta.actualizarEstado(id, vigente);
     }
 
     public static void realizaroferta(
@@ -80,7 +61,7 @@ public class GestorSubastas {
         }
     }
 
-    public static ArrayList<Subasta> listarSubastas() {
-        return listaSubastas;
+    public static ArrayList<Subasta> listarSubastas() throws Exception {
+        return DAOSubasta.listarSubastas();
     }
 }

@@ -4,11 +4,11 @@ import java.io.FileInputStream;
 import java.util.Properties;
 
 public class Utilidades {
-    public static String[] getProperties() throws Exception{
+    public static String[] getProperties() throws Exception {
 
         String[] propiedades = new String[5];
         Properties lectura = new Properties();
-        String ruta = "src/gonzalez/alexander/utils/bd.properties";
+        String ruta = "src/cr/ac/ucenfotec/utils/bd.properties";
 
         try {
             lectura.load(new FileInputStream(ruta));
@@ -18,7 +18,7 @@ public class Utilidades {
             propiedades[3] = lectura.getProperty("user");
             propiedades[4] = lectura.getProperty("password");
             return propiedades;
-        } catch(Exception e) {
+        } catch (Exception e) {
             System.out.println("Se dio un error inesperado al cargar las credenciales de acceso a la base de datos.");
             throw e;
         }

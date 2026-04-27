@@ -11,6 +11,7 @@ import java.util.ArrayList;
 public class Subasta {
 
     // Atributos
+    private int id;
     private LocalDateTime fechaVencimiento;
     private Duration TiempoParaVencer;
     private Usuario creador;
@@ -70,6 +71,10 @@ public class Subasta {
     }
 
     // Getters
+    public int getId() {
+        return id;
+    }
+
     public LocalDateTime getFechaVencimiento() {
         return fechaVencimiento;
     }
@@ -104,6 +109,10 @@ public class Subasta {
     }
 
     // Setters
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public void setFechaVencimiento(LocalDateTime fechaVencimiento) {
         this.fechaVencimiento = fechaVencimiento;
     }
@@ -136,8 +145,8 @@ public class Subasta {
     @Override
     public String toString() {
         String estado = vigente ? "🟢 VIGENTE" : "🔴 CERRADA";
-        return String.format("🔨 Subasta [%s] | Creador: %s | Precio Base: $%.2f\n   Vence: %s | En lista: %d objetos, %d ofertas", 
-                estado, creador.getNombre(), precioMinimo, fechaVencimiento, objetosSubastados.size(), listaOfertas.size());
+        return String.format("🔨 Subasta [%d] [%s] | Creador: %s | Precio Base: $%.2f\n   Vence: %s | En lista: %d objetos, %d ofertas", 
+                id, estado, creador.getNombre(), precioMinimo, fechaVencimiento, objetosSubastados.size(), listaOfertas.size());
     }
 
     public void agregarOferta(Coleccionista oferente, Double monto) {

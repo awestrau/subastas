@@ -130,4 +130,103 @@ public class Controlador {
             System.out.println("Error al actualizar estado del objeto: " + e.getMessage());
         }
     }
+
+    public static void crearSubasta() {
+        try {
+            System.out.println("\n--- Crear Subasta ---");
+            java.util.ArrayList<cr.ac.ucenfotec.bl.entities.usuarios.Usuario> usuarios = GestorUsuarios.listarUsuarios();
+            if (usuarios.isEmpty()) {
+                System.out.println("No hay usuarios registrados.");
+                return;
+            }
+            for (int i = 0; i < usuarios.size(); i++) {
+                System.out.println(i + " - " + usuarios.get(i).getNombre() + " (" + usuarios.get(i).getClass().getSimpleName() + ")");
+            }
+            int indice = leerEntero("Seleccione el creador de esta subasta: ");
+            if (indice < 0 || indice >= usuarios.size()) {
+                System.out.println("Índice inválido.");
+                return;
+            }
+            cr.ac.ucenfotec.bl.entities.usuarios.Usuario creador = usuarios.get(indice);
+
+            if (!(creador instanceof cr.ac.ucenfotec.bl.entities.usuarios.Coleccionista) &&
+                !(creador instanceof cr.ac.ucenfotec.bl.entities.usuarios.Vendedor)) {
+                System.out.println("Solo los vendedores o coleccionistas pueden crear subastas.");
+                return;
+            }
+
+            double precioMin = leerEntero("Precio mínimo: ");
+
+            java.util.ArrayList<cr.ac.ucenfotec.bl.entities.Objeto> todosLosObjetos = GestorObjeto.listarObjetos();
+            if (todosLosObjetos.isEmpty()) {
+                System.out.println("No hay objetos registrados en el sistema. Debe crear objetos primero.");
+                return;
+            }
+
+            System.out.println("Objetos disponibles:");
+            for (cr.ac.ucenfotec.bl.entities.Objeto obj : todosLosObjetos) {
+                System.out.println("ID: " + obj.getId() + " - " + obj.getNombre());
+            }
+
+            System.out.print("Ingrese los IDs de los objetos a subastar separados por coma (ej. 1, 2, 3): ");
+            String idsInput = scanner.nextLine();
+            String[] idsArray = idsInput.split(",");
+            java.util.ArrayList<cr.ac.ucenfotec.bl.entities.Objeto> objetosSeleccionados = new java.util.ArrayList<>();
+            for (String idStr : idsArray) {
+                int objId = Integer.parseInt(idStr.trim());
+                for (cr.ac.ucenfotec.bl.entities.Objeto obj : todosLosObjetos) {
+                    if (obj.getId() == objId) {
+                        objetosSeleccionados.add(obj);
+                        break;
+                    }
+                }
+            }
+
+            if (objetosSeleccionados.isEmpty()) {
+                System.out.println("No se seleccionaron objetos válidos.");
+                return;
+            }
+
+            if (creador instanceof cr.ac.ucenfotec.bl.entities.usuarios.Coleccionista) {
+                System.out.println(cr.ac.ucenfotec.bl.logic.GestorSubastas.crearSubasta((cr.ac.ucenfotec.bl.entities.usuarios.Coleccionista) creador, precioMin, objetosSeleccionados));
+            } else {
+                System.out.println(cr.ac.ucenfotec.bl.logic.GestorSubastas.crearSubasta((cr.ac.ucenfotec.bl.entities.usuarios.Vendedor) creador, precioMin, objetosSeleccionados));
+            }
+
+        } catch (Exception e) {
+            System.out.println("Error al crear subasta: " + e.getMessage());
+        }
+    }
+
+    public static void listarSubastas() {
+        try {
+            System.out.println("\n--- Listado de Subastas ---");
+            java.util.ArrayList<cr.ac.ucenfotec.bl.entities.Subasta> subastas = cr.ac.ucenfotec.bl.logic.GestorSubastas.listarSubastas();
+            if (subastas.isEmpty()) {
+                System.out.println("No hay subastas registradas.");
+                return;
+            }
+            for (cr.ac.ucenfotec.bl.entities.Subasta s : subastas) {
+                System.out.println(s.toString());
+            }
+        } catch (Exception e) {
+            System.out.println("Error al listar subastas: " + e.getMessage());
+        }
+    }
+
+    public static void actualizarEstadoSubasta() {
+        try {
+            System.out.println("\n--- Actualizar Estado de Subasta ---");
+            listarSubastas();
+            int id = leerEntero("Ingrese el ID de la subasta a actualizar: ");
+            System.out.println("Seleccione el nuevo estado:");
+            System.out.println("1. VIGENTE");
+            System.out.println("2. CERRADA");
+            int opcion = leerEntero("Opción: ");
+            boolean vigente = (opcion == 1);
+            System.out.println(cr.ac.ucenfotec.bl.logic.GestorSubastas.actualizarEstadoSubasta(id, vigente));
+        } catch (Exception e) {
+            System.out.println("Error al actualizar estado de la subasta: " + e.getMessage());
+        }
+    }
 }

@@ -21,4 +21,14 @@ public class AccesoBD {
         preparedStatement = conexion.prepareStatement(query);
         return preparedStatement.executeQuery();
     }
+
+    public int ejecutarStatementConRetornoId(String query) throws SQLException {
+        this.statement = conexion.createStatement();
+        this.statement.executeUpdate(query, Statement.RETURN_GENERATED_KEYS);
+        ResultSet rs = this.statement.getGeneratedKeys();
+        if (rs.next()) {
+            return rs.getInt(1);
+        }
+        return -1;
+    }
 }

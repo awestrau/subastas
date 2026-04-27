@@ -20,6 +20,14 @@ CREATE TABLE t_subastas(
     vigente BOOLEAN NOT NULL
 );
 
+CREATE TABLE t_subasta_objetos(
+    id_subasta INT NOT NULL,
+    id_objeto INT NOT NULL,
+    PRIMARY KEY (id_subasta, id_objeto),
+    FOREIGN KEY (id_subasta) REFERENCES t_subastas(id_subasta),
+    FOREIGN KEY (id_objeto) REFERENCES t_objetos(id_objeto)
+);
+
 CREATE TABLE t_ofertas(
     id_oferta INT AUTO_INCREMENT PRIMARY KEY,
     id_subasta INT NOT NULL,

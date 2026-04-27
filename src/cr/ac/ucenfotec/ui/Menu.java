@@ -31,7 +31,7 @@ public class Menu {
             mostrarMenu();
             opcion = leerEntero("Seleccione una opción: ");
             procesarOpcion(opcion);
-        } while (opcion != 10);
+        } while (opcion != 11);
     }
 
     private static void verificarModerador() {
@@ -55,7 +55,8 @@ public class Menu {
                 "7. Crear objeto\n" +
                 "8. Listado de objetos\n" +
                 "9. Actualizar estado de objeto\n" +
-                "10. Salir"
+                "10. Actualizar estado de subasta\n" +
+                "11. Salir"
         );
     }
 
@@ -68,10 +69,10 @@ public class Menu {
                 listarUsuarios();
                 break;
             case 3:
-                //Controlador.crearSubasta();
+                Controlador.crearSubasta();
                 break;
             case 4:
-                listarSubastas();
+                Controlador.listarSubastas();
                 break;
             case 5:
                 crearOferta();
@@ -89,6 +90,9 @@ public class Menu {
                 Controlador.actualizarEstadoObjeto();
                 break;
             case 10:
+                Controlador.actualizarEstadoSubasta();
+                break;
+            case 11:
                 System.out.println("Saliendo del sistema...");
                 break;
             default:
@@ -211,81 +215,7 @@ public class Menu {
         }
     }
 
-    private static void crearSubasta() {
-        try {
-            System.out.println("\n--- Crear Subasta ---");
 
-            ArrayList<Usuario> usuarios = GestorUsuarios.listarUsuarios();
-
-            for (int i = 0; i < usuarios.size(); i++) {
-                System.out.println(i + " - " + usuarios.get(i).getNombre());
-            }
-
-            int indice = leerEntero("Seleccione el creador de esta subasta: ");
-            Usuario creador = usuarios.get(indice);
-
-            // VALIDACIÓN DEL TIPO DE USUARIO
-            if (
-                !(creador instanceof Coleccionista) &&
-                !(creador instanceof Vendedor)
-            ) {
-                System.out.println(
-                    "Solo los vendedores o coleccionistas pueden crear subastas."
-                );
-                return;
-            }
-
-            double precioMin = leerEntero("Precio mínimo: ");
-
-            int cantidad = leerEntero("Cantidad de objetos: ");
-
-            ArrayList<String> nombres = new ArrayList<>();
-            ArrayList<String> descripciones = new ArrayList<>();
-
-            for (int i = 0; i < cantidad; i++) {
-                System.out.print("Nombre objeto: ");
-                nombres.add(scanner.nextLine());
-
-                System.out.print("Descripción: ");
-                descripciones.add(scanner.nextLine());
-            }
-
-            if (creador instanceof Coleccionista) {
-                GestorSubastas.crearSubasta(
-                    (Coleccionista) creador,
-                    precioMin,
-                    nombres,
-                    descripciones
-                );
-            } else {
-                GestorSubastas.crearSubasta(
-                    (Vendedor) creador,
-                    precioMin,
-                    nombres,
-                    descripciones
-                );
-            }
-
-            System.out.println("Subasta creada correctamente.");
-        } catch (Exception e) {
-            System.out.println("Error: " + e.getMessage());
-        }
-    }
-
-    private static void listarSubastas() {
-        System.out.println("\n--- Listado de Subastas ---");
-
-        ArrayList<Subasta> subastas = GestorSubastas.listarSubastas();
-
-        if (subastas.isEmpty()) {
-            System.out.println("No hay subastas registradas.");
-            return;
-        }
-
-        for (int i = 0; i < subastas.size(); i++) {
-            System.out.println(i + " - " + subastas.get(i).toString());
-        }
-    }
 
     private static void crearOferta() {
         try {
