@@ -5,6 +5,7 @@ import cr.ac.ucenfotec.bl.entities.usuarios.Coleccionista;
 public class Oferta {
 
     //Atributos
+    private int idOferta;
     private Coleccionista oferente;
     private double puntuacionOferente;
     private double precioOfertado;
@@ -20,7 +21,17 @@ public class Oferta {
         this.oferente = oferente;
     }
 
+    public Oferta(int idOferta, Coleccionista oferente, double precioOfertado) {
+        this.idOferta = idOferta;
+        this.precioOfertado = precioOfertado;
+        this.puntuacionOferente = oferente.getPuntuacion();
+        this.oferente = oferente;
+    }
+
     //Getters
+    public int getIdOferta() {
+        return idOferta;
+    }
 
 
     public Coleccionista getOferente() {
@@ -36,6 +47,9 @@ public class Oferta {
     }
 
     //Setters
+    public void setIdOferta(int idOferta) {
+        this.idOferta = idOferta;
+    }
 
 
     public void setOferente(Coleccionista oferente) {

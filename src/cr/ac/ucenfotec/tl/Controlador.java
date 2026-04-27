@@ -19,6 +19,8 @@ import cr.ac.ucenfotec.bl.entities.usuarios.Moderador;
 import cr.ac.ucenfotec.bl.entities.usuarios.Vendedor;
 import cr.ac.ucenfotec.bl.logic.GestorSubastas;
 import cr.ac.ucenfotec.bl.logic.GestorOferta;
+import cr.ac.ucenfotec.bl.logic.GestorOrdenAdjudicacion;
+import cr.ac.ucenfotec.bl.entities.OrdenAdjudicacion;
 
 public class Controlador {
     private static Scanner scanner = new Scanner(System.in);
@@ -270,6 +272,28 @@ public class Controlador {
             int opcion = leerEntero("Opción: ");
             boolean vigente = (opcion == 1);
             System.out.println(GestorSubastas.actualizarEstadoSubasta(id, vigente));
+            
+            if (!vigente) {
+                ArrayList<Subasta> subastas = GestorSubastas.listarSubastas();
+                Subasta subastaCerrada = null;
+                for (Subasta s : subastas) {
+                    if (s.getId() == id) {
+                        subastaCerrada = s;
+                        break;
+                    }
+                }
+                
+                if (subastaCerrada != null) {
+                    Oferta ganadora = subastaCerrada.obtenerOfertaGanadora();
+                    if (ganadora != null) {
+                        System.out.println("\n🎉 Oferente ganador: " + ganadora.getOferente().getNombre() + " con una oferta de $" + String.format("%.2f", ganadora.getPrecioOfertado()));
+                        GestorOrdenAdjudicacion.registrarOrdenAdjudicacion(ganadora.getOferente().getId(), subastaCerrada.getId(), ganadora.getIdOferta());
+                        System.out.println("Orden de adjudicación generada automáticamente.");
+                    } else {
+                        System.out.println("\nNo hubo ofertas para esta subasta.");
+                    }
+                }
+            }
         } catch (Exception e) {
             System.out.println("Error al actualizar estado de la subasta: " + e.getMessage());
         }
@@ -341,9 +365,18 @@ public class Controlador {
                 ArrayList<Oferta> ofertasDeSubasta = GestorOferta.listarOfertasPorSubasta(s.getId());
                 if (!ofertasDeSubasta.isEmpty()) {
                     System.out.println("\nSubasta: " + s.toString());
+                    
+                    Oferta ganadora = null;
+                    if (!s.isVigente()) {
+                        ganadora = s.obtenerOfertaGanadora();
+                    }
 
                     for (Oferta o : ofertasDeSubasta) {
-                        System.out.println(o.toString());
+                        if (ganadora != null && o.getOferente().getId().equals(ganadora.getOferente().getId()) && o.getPrecioOfertado() == ganadora.getPrecioOfertado()) {
+                            System.out.println(o.toString() + " 🏆 (OFERTA GANADORA)");
+                        } else {
+                            System.out.println(o.toString());
+                        }
                     }
 
                     hayOfertas = true;
@@ -355,6 +388,22 @@ public class Controlador {
             }
         } catch (Exception e) {
             System.out.println("Error al listar ofertas: " + e.getMessage());
+        }
+    }
+
+    public static void listarOrdenesAdjudicacion() {
+        System.out.println("\n--- Listado de Órdenes de Adjudicación ---");
+        try {
+            ArrayList<OrdenAdjudicacion> ordenes = GestorOrdenAdjudicacion.listarOrdenes();
+            if (ordenes.isEmpty()) {
+                System.out.println("No hay órdenes de adjudicación registradas.");
+            } else {
+                for (OrdenAdjudicacion o : ordenes) {
+                    System.out.println(o.toString());
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("Error al listar órdenes de adjudicación: " + e.getMessage());
         }
     }
 }

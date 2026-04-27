@@ -68,7 +68,8 @@ CREATE TABLE t_ofertas(
 
 CREATE TABLE t_ordenes_adjudicacion(
     id_orden INT AUTO_INCREMENT PRIMARY KEY,
-    nombre_ganador VARCHAR(100) NOT NULL,
-    fecha_orden DATE NOT NULL,
-    precio_total DECIMAL(10,2) NOT NULL
+    id_ganador VARCHAR(50) NOT NULL,
+    id_subasta INT NOT NULL,
+    id_oferta INT NOT NULL,
+    fecha DATETIME DEFAULT CURRENT_TIMESTAMP
 );

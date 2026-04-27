@@ -38,7 +38,7 @@ public class DAOOferta {
                 }
             }
             if (oferente != null) {
-                Oferta oferta = new Oferta(oferente, rs.getDouble("precio_ofertado"));
+                Oferta oferta = new Oferta(rs.getInt("id_oferta"), oferente, rs.getDouble("precio_ofertado"));
                 ofertas.add(oferta);
             }
         }
@@ -59,7 +59,7 @@ public class DAOOferta {
     }
 
     public static Oferta obtenerOfertaGanadora(int idSubasta) throws Exception {
-        String query = "SELECT id_oferente, precio_ofertado FROM t_ofertas WHERE id_subasta = " + idSubasta + " ORDER BY precio_ofertado DESC LIMIT 1;";
+        String query = "SELECT id_oferta, id_oferente, precio_ofertado FROM t_ofertas WHERE id_subasta = " + idSubasta + " ORDER BY precio_ofertado DESC LIMIT 1;";
         ResultSet rs = Conector.getConexion().ejecutarQuery(query);
         if (rs != null && rs.next()) {
             String idOferente = rs.getString("id_oferente");
@@ -72,7 +72,7 @@ public class DAOOferta {
                 }
             }
             if (oferente != null) {
-                return new Oferta(oferente, rs.getDouble("precio_ofertado"));
+                return new Oferta(rs.getInt("id_oferta"), oferente, rs.getDouble("precio_ofertado"));
             }
         }
         return null;

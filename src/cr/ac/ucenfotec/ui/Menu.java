@@ -31,7 +31,7 @@ public class Menu {
             mostrarMenu();
             opcion = leerEntero("Seleccione una opción: ");
             procesarOpcion(opcion);
-        } while (opcion != 10);
+        } while (opcion != 11);
     }
 
     private static void verificarModerador() throws Exception {
@@ -55,7 +55,8 @@ public class Menu {
                 "7. Listado de objetos\n" +
                 "8. Actualizar estado de objeto\n" +
                 "9. Actualizar estado de subasta\n" +
-                "10. Salir"
+                "10. Listar órdenes de adjudicación\n" +
+                "11. Salir"
         );
     }
 
@@ -89,6 +90,9 @@ public class Menu {
                 Controlador.actualizarEstadoSubasta();
                 break;
             case 10:
+                Controlador.listarOrdenesAdjudicacion();
+                break;
+            case 11:
                 System.out.println("Saliendo del sistema...");
                 break;
             default:
