@@ -15,6 +15,8 @@ public class Vendedor extends Usuario {
         this.direccion = direccion;
     }
 
+
+
     public int getPuntuacion() {
         return puntuacion;
     }

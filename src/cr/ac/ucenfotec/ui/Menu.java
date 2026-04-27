@@ -7,6 +7,8 @@ import cr.ac.ucenfotec.bl.entities.usuarios.Usuario;
 import cr.ac.ucenfotec.bl.entities.usuarios.Vendedor;
 import cr.ac.ucenfotec.bl.logic.GestorSubastas;
 import cr.ac.ucenfotec.bl.logic.GestorUsuarios;
+import cr.ac.ucenfotec.tl.Controlador;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -37,7 +39,7 @@ public class Menu {
             System.out.println(
                 "No existe un moderador en el sistema. Debe registrar uno para continuar."
             );
-            registrarUsuario(1);
+            Controlador.registrarUsuario(1);
         }
     }
 
@@ -57,13 +59,13 @@ public class Menu {
     private static void procesarOpcion(int opcion) {
         switch (opcion) {
             case 1:
-                registrarUsuario(0);
+                Controlador.registrarUsuario(0);
                 break;
             case 2:
                 listarUsuarios();
                 break;
             case 3:
-                crearSubasta();
+                //Controlador.crearSubasta();
                 break;
             case 4:
                 listarSubastas();
