@@ -20,6 +20,21 @@ CREATE TABLE t_subastas(
     vigente BOOLEAN NOT NULL
 );
 
+CREATE TABLE t_ofertas(
+    id_oferta INT AUTO_INCREMENT PRIMARY KEY,
+    id_subasta INT NOT NULL,
+    id_oferente VARCHAR(50) NOT NULL,
+    puntuacion_oferente DECIMAL(5,2) NOT NULL,
+    precio_ofertado DECIMAL(10,2) NOT NULL
+);
+
+CREATE TABLE t_ordenes_adjudicacion(
+    id_orden INT AUTO_INCREMENT PRIMARY KEY,
+    nombre_ganador VARCHAR(100) NOT NULL,
+    fecha_orden DATETIME NOT NULL,
+    precio_total DECIMAL(10,2) NOT NULL
+);
+
 CREATE TABLE t_moderadores(
     id VARCHAR(50) PRIMARY KEY,
     nombre VARCHAR(100) NOT NULL,
