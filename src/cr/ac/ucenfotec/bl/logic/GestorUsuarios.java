@@ -103,7 +103,11 @@ public class GestorUsuarios {
         usuarios.add(nColeccionista);
     }
 
-    public static ArrayList<Usuario> listarUsuarios() {
-        return usuarios;
+    public static ArrayList<Usuario> listarUsuarios() throws Exception {
+        ArrayList<Usuario> lista = new ArrayList<>();
+        lista.addAll(GestorModerador.listarModeradores());
+        lista.addAll(GestorVendedor.listarVendedores());
+        lista.addAll(GestorColeccionista.listarColeccionistas());
+        return lista;
     }
 }

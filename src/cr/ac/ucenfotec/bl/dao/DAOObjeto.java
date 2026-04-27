@@ -17,6 +17,18 @@ public class DAOObjeto {
         return "Objeto registrado exitosamente.";
     }
 
+    public static Objeto insertarYObtenerObjeto(Objeto objeto) throws Exception {
+        statement = "INSERT INTO t_objetos (nombre, descripcion, estado, fecha_compra, antiguedad) VALUES ('" +
+                objeto.getNombre() + "', '" +
+                objeto.getDescripcion() + "', '" +
+                objeto.getEstado() + "', '" +
+                objeto.getFechaCompra().toString() + "', '" +
+                objeto.getAntiguedad() + "');";
+        int idObjeto = Conector.getConexion().ejecutarStatementConRetornoId(statement);
+        objeto.setId(idObjeto);
+        return objeto;
+    }
+
     public static java.util.ArrayList<Objeto> listarObjetos() throws Exception {
         java.util.ArrayList<Objeto> objetos = new java.util.ArrayList<>();
         statement = "SELECT id_objeto, nombre, descripcion, estado, fecha_compra, antiguedad FROM t_objetos;";

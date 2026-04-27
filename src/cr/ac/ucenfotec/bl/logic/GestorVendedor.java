@@ -12,7 +12,7 @@ public class GestorVendedor {
         return DAOVendedor.insertarVendedor(new Vendedor(nombre, id, password, fechaNacimiento, correo, puntuacion, direccion));
     }
 
-    public static void listarVendedores() throws Exception {
-        DAOVendedor.listarVendedores();
+    public static java.util.ArrayList<Vendedor> listarVendedores() throws Exception {
+        return DAOVendedor.listarVendedores();
     }
 }

@@ -3,7 +3,7 @@ services:
     image: mysql:8.0
     container_name: subastas_mysql
     environment:
-      MYSQL_ROOT_PASSWORD: 4280zdvd
+      MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: db_subastas
     ports:
       - "3306:3306"

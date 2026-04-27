@@ -12,8 +12,11 @@ import java.util.Scanner;
 import java.util.ArrayList;
 import cr.ac.ucenfotec.bl.entities.Subasta;
 import cr.ac.ucenfotec.bl.entities.Oferta;
+import cr.ac.ucenfotec.bl.entities.Objeto;
 import cr.ac.ucenfotec.bl.entities.usuarios.Usuario;
 import cr.ac.ucenfotec.bl.entities.usuarios.Coleccionista;
+import cr.ac.ucenfotec.bl.entities.usuarios.Moderador;
+import cr.ac.ucenfotec.bl.entities.usuarios.Vendedor;
 import cr.ac.ucenfotec.bl.logic.GestorSubastas;
 import cr.ac.ucenfotec.bl.logic.GestorOferta;
 
@@ -113,11 +116,20 @@ public class Controlador {
 
     public static void listarUsuarios() throws Exception {
         System.out.println("\n--- Listado de Usuarios ---");
-        GestorModerador.listarModeradores();
-        GestorVendedor.listarVendedores();
-        java.util.ArrayList<Coleccionista> coleccionistas = GestorColeccionista.listarColeccionistas();
+        System.out.println("\n*** Moderadores ***");
+        ArrayList<Moderador> moderadores = GestorModerador.listarModeradores();
+        if (moderadores.isEmpty()) System.out.println("No hay moderadores");
+        else for (Moderador m : moderadores) System.out.println(m);
+        
+        System.out.println("\n*** Vendedores ***");
+        ArrayList<Vendedor> vendedores = GestorVendedor.listarVendedores();
+        if (vendedores.isEmpty()) System.out.println("No hay vendedores");
+        else for (Vendedor v : vendedores) System.out.println(v);
+        
+        System.out.println("\n*** Coleccionistas ***");
+        ArrayList<Coleccionista> coleccionistas = GestorColeccionista.listarColeccionistas();
         if (coleccionistas.isEmpty()) {
-            System.out.println("\n***No hay coleccionistas***");
+            System.out.println("No hay coleccionistas");
         } else {
             for (Coleccionista c : coleccionistas) {
                 System.out.println(c);
@@ -144,11 +156,11 @@ public class Controlador {
     public static void listarObjetos() {
         try {
             System.out.println("\n--- Listado de Objetos ---");
-            java.util.ArrayList<cr.ac.ucenfotec.bl.entities.Objeto> objetos = GestorObjeto.listarObjetos();
+            ArrayList<Objeto> objetos = GestorObjeto.listarObjetos();
             if (objetos.isEmpty()) {
                 System.out.println("No hay objetos registrados.");
             } else {
-                for (cr.ac.ucenfotec.bl.entities.Objeto o : objetos) {
+                for (Objeto o : objetos) {
                     System.out.println(o.toString());
                 }
             }
@@ -173,7 +185,7 @@ public class Controlador {
     public static void crearSubasta() {
         try {
             System.out.println("\n--- Crear Subasta ---");
-            java.util.ArrayList<cr.ac.ucenfotec.bl.entities.usuarios.Usuario> usuarios = GestorUsuarios.listarUsuarios();
+            ArrayList<Usuario> usuarios = GestorUsuarios.listarUsuarios();
             if (usuarios.isEmpty()) {
                 System.out.println("No hay usuarios registrados.");
                 return;
@@ -186,38 +198,32 @@ public class Controlador {
                 System.out.println("Índice inválido.");
                 return;
             }
-            cr.ac.ucenfotec.bl.entities.usuarios.Usuario creador = usuarios.get(indice);
+            Usuario creador = usuarios.get(indice);
 
-            if (!(creador instanceof cr.ac.ucenfotec.bl.entities.usuarios.Coleccionista) &&
-                !(creador instanceof cr.ac.ucenfotec.bl.entities.usuarios.Vendedor)) {
+            if (!(creador instanceof Coleccionista) &&
+                !(creador instanceof Vendedor)) {
                 System.out.println("Solo los vendedores o coleccionistas pueden crear subastas.");
                 return;
             }
 
-            double precioMin = leerEntero("Precio mínimo: ");
+            double precioMin = leerDouble("Precio mínimo: ");
 
-            java.util.ArrayList<cr.ac.ucenfotec.bl.entities.Objeto> todosLosObjetos = GestorObjeto.listarObjetos();
-            if (todosLosObjetos.isEmpty()) {
-                System.out.println("No hay objetos registrados en el sistema. Debe crear objetos primero.");
-                return;
-            }
-
-            System.out.println("Objetos disponibles:");
-            for (cr.ac.ucenfotec.bl.entities.Objeto obj : todosLosObjetos) {
-                System.out.println("ID: " + obj.getId() + " - " + obj.getNombre());
-            }
-
-            System.out.print("Ingrese los IDs de los objetos a subastar separados por coma (ej. 1, 2, 3): ");
-            String idsInput = scanner.nextLine();
-            String[] idsArray = idsInput.split(",");
-            java.util.ArrayList<cr.ac.ucenfotec.bl.entities.Objeto> objetosSeleccionados = new java.util.ArrayList<>();
-            for (String idStr : idsArray) {
-                int objId = Integer.parseInt(idStr.trim());
-                for (cr.ac.ucenfotec.bl.entities.Objeto obj : todosLosObjetos) {
-                    if (obj.getId() == objId) {
-                        objetosSeleccionados.add(obj);
-                        break;
-                    }
+            ArrayList<Objeto> objetosSeleccionados = new ArrayList<>();
+            System.out.println("A continuación, registre los objetos para esta subasta.");
+            while (true) {
+                System.out.print("Nombre del objeto: ");
+                String nombreObjeto = scanner.nextLine();
+                System.out.print("Descripción del objeto: ");
+                String descripcion = scanner.nextLine();
+                
+                Objeto nuevoObjeto = GestorObjeto.crearYObtenerObjeto(nombreObjeto, descripcion);
+                objetosSeleccionados.add(nuevoObjeto);
+                System.out.println("Objeto registrado y agregado a la subasta.");
+                
+                System.out.print("¿Desea agregar otro objeto? (s/n): ");
+                String continuar = scanner.nextLine();
+                if (!continuar.equalsIgnoreCase("s")) {
+                    break;
                 }
             }
 
@@ -226,10 +232,10 @@ public class Controlador {
                 return;
             }
 
-            if (creador instanceof cr.ac.ucenfotec.bl.entities.usuarios.Coleccionista) {
-                System.out.println(cr.ac.ucenfotec.bl.logic.GestorSubastas.crearSubasta((cr.ac.ucenfotec.bl.entities.usuarios.Coleccionista) creador, precioMin, objetosSeleccionados));
+            if (creador instanceof Coleccionista) {
+                System.out.println(GestorSubastas.crearSubasta((Coleccionista) creador, precioMin, objetosSeleccionados));
             } else {
-                System.out.println(cr.ac.ucenfotec.bl.logic.GestorSubastas.crearSubasta((cr.ac.ucenfotec.bl.entities.usuarios.Vendedor) creador, precioMin, objetosSeleccionados));
+                System.out.println(GestorSubastas.crearSubasta((Vendedor) creador, precioMin, objetosSeleccionados));
             }
 
         } catch (Exception e) {
@@ -240,12 +246,12 @@ public class Controlador {
     public static void listarSubastas() {
         try {
             System.out.println("\n--- Listado de Subastas ---");
-            java.util.ArrayList<cr.ac.ucenfotec.bl.entities.Subasta> subastas = cr.ac.ucenfotec.bl.logic.GestorSubastas.listarSubastas();
+            ArrayList<Subasta> subastas = GestorSubastas.listarSubastas();
             if (subastas.isEmpty()) {
                 System.out.println("No hay subastas registradas.");
                 return;
             }
-            for (cr.ac.ucenfotec.bl.entities.Subasta s : subastas) {
+            for (Subasta s : subastas) {
                 System.out.println(s.toString());
             }
         } catch (Exception e) {
@@ -263,7 +269,7 @@ public class Controlador {
             System.out.println("2. CERRADA");
             int opcion = leerEntero("Opción: ");
             boolean vigente = (opcion == 1);
-            System.out.println(cr.ac.ucenfotec.bl.logic.GestorSubastas.actualizarEstadoSubasta(id, vigente));
+            System.out.println(GestorSubastas.actualizarEstadoSubasta(id, vigente));
         } catch (Exception e) {
             System.out.println("Error al actualizar estado de la subasta: " + e.getMessage());
         }

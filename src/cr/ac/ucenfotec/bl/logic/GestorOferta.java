@@ -6,13 +6,19 @@ import cr.ac.ucenfotec.bl.entities.usuarios.Coleccionista;
 
 public class GestorOferta {
     public static String realizarOferta(Coleccionista oferente, Subasta subasta, double monto) throws Exception {
-        if (subasta.getCreador().getIdentificacion().equals(oferente.getIdentificacion())) {
+        if (subasta.getCreador().getId().equals(oferente.getId())) {
             throw new Exception("El creador de la subasta no puede ofertar");
         }
         if (monto < subasta.getPrecioMinimo()) {
             throw new Exception("El monto de la oferta no puede ser menor al precio mínimo de la subasta.");
         }
-        // Validar si la oferta es mayor a la oferta más alta actual si existiera la validación
+        // Validar si la oferta es mayor a la oferta más alta actual si existiera la
+        // validación
         return DAOOferta.registrarOferta(subasta, oferente, monto);
+    }
+
+    public static java.util.ArrayList<cr.ac.ucenfotec.bl.entities.Oferta> listarOfertasPorSubasta(int idSubasta)
+            throws Exception {
+        return DAOOferta.listarOfertasPorSubasta(idSubasta);
     }
 }

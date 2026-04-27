@@ -11,8 +11,8 @@ public class GestorModerador {
         return DAOModerador.insertarModerador(new Moderador(nombre, id, password, fechaNacimiento, correo));
     }
 
-    public static void listarModeradores() throws Exception {
-        DAOModerador.listarModeradores();
+    public static java.util.ArrayList<Moderador> listarModeradores() throws Exception {
+        return DAOModerador.listarModeradores();
     }
 
     public static Boolean existeModerador() throws Exception {

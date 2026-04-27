@@ -19,21 +19,20 @@ public class DAOVendedor {
         return "Vendedor registrado exitosamente.";
     }
 
-    public static void listarVendedores() throws Exception {
+    public static java.util.ArrayList<Vendedor> listarVendedores() throws Exception {
         query = "SELECT * FROM t_vendedores;";
         ResultSet resultado = Conector.getConexion().ejecutarQuery(query);
+        java.util.ArrayList<Vendedor> lista = new java.util.ArrayList<>();
         if (!resultado.next()){
-            System.out.println("\n***No hay vendedores***");
-            return;
+            return lista;
         }
 
         do{
             Vendedor vendedor = new Vendedor(resultado.getString("nombre"), resultado.getString("id"),
                     resultado.getString("password"), resultado.getDate("fecha_nacimiento").toLocalDate(),
                     resultado.getString("correo"), resultado.getInt("puntuacion"), resultado.getString("direccion"));
-
-            System.out.println(vendedor);
-
+            lista.add(vendedor);
         }while(resultado.next());
+        return lista;
     }
 }

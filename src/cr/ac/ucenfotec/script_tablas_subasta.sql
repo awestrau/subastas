@@ -1,5 +1,33 @@
-CREATE DATABASE db_subastas;
+CREATE DATABASE IF NOT EXISTS db_subastas;
 USE db_subastas;
+
+CREATE TABLE t_moderadores(
+    id VARCHAR(50) PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    password VARCHAR(100) NOT NULL,
+    fecha_nacimiento DATE NOT NULL,
+    correo VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE t_coleccionistas(
+    id VARCHAR(50) PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    password VARCHAR(100) NOT NULL,
+    fecha_nacimiento DATE NOT NULL,
+    correo VARCHAR(100) NOT NULL,
+    puntuacion INT DEFAULT 0,
+    direccion VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE t_vendedores(
+    id VARCHAR(50) PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    password VARCHAR(100) NOT NULL,
+    fecha_nacimiento DATE NOT NULL,
+    correo VARCHAR(100) NOT NULL,
+    puntuacion INT DEFAULT 0,
+    direccion VARCHAR(255) NOT NULL
+);
 
 CREATE TABLE t_objetos(
     id_objeto INT AUTO_INCREMENT PRIMARY KEY,
@@ -43,32 +71,4 @@ CREATE TABLE t_ordenes_adjudicacion(
     nombre_ganador VARCHAR(100) NOT NULL,
     fecha_orden DATE NOT NULL,
     precio_total DECIMAL(10,2) NOT NULL
-);
-
-CREATE TABLE t_moderadores(
-    id VARCHAR(50) PRIMARY KEY,
-    nombre VARCHAR(100) NOT NULL,
-    password VARCHAR(100) NOT NULL,
-    fecha_nacimiento DATE NOT NULL,
-    correo VARCHAR(100) NOT NULL
-);
-
-CREATE TABLE t_coleccionistas(
-    id VARCHAR(50) PRIMARY KEY,
-    nombre VARCHAR(100) NOT NULL,
-    password VARCHAR(100) NOT NULL,
-    fecha_nacimiento DATE NOT NULL,
-    correo VARCHAR(100) NOT NULL,
-    puntuacion INT DEFAULT 0,
-    direccion VARCHAR(255) NOT NULL
-);
-
-CREATE TABLE t_vendedores(
-    id VARCHAR(50) PRIMARY KEY,
-    nombre VARCHAR(100) NOT NULL,
-    password VARCHAR(100) NOT NULL,
-    fecha_nacimiento DATE NOT NULL,
-    correo VARCHAR(100) NOT NULL,
-    puntuacion INT DEFAULT 0,
-    direccion VARCHAR(255) NOT NULL
 );

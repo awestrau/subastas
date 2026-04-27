@@ -1,34 +1,34 @@
 package cr.ac.ucenfotec.bl.logic;
 
 import cr.ac.ucenfotec.bl.entities.Objeto;
+import cr.ac.ucenfotec.bl.entities.Oferta;
 import cr.ac.ucenfotec.bl.entities.OrdenAdjudicacion;
 import cr.ac.ucenfotec.bl.entities.Subasta;
 import cr.ac.ucenfotec.bl.entities.usuarios.Coleccionista;
 import cr.ac.ucenfotec.bl.entities.usuarios.Vendedor;
 import java.util.ArrayList;
 
+import cr.ac.ucenfotec.bl.dao.DAOOferta;
 import cr.ac.ucenfotec.bl.dao.DAOSubasta;
 import java.util.ArrayList;
 
 public class GestorSubastas {
     // public GestorSubastas() {
-    //     listaSubastas = new ArrayList<>();
+    // listaSubastas = new ArrayList<>();
     // }
 
     public static String crearSubasta(
-        Coleccionista creador,
-        double precioMinimo,
-        ArrayList<Objeto> objetosSubastados
-    ) throws Exception {
+            Coleccionista creador,
+            double precioMinimo,
+            ArrayList<Objeto> objetosSubastados) throws Exception {
         Subasta subasta = new Subasta(creador, precioMinimo, objetosSubastados);
         return DAOSubasta.insertarSubasta(subasta);
     }
 
     public static String crearSubasta(
-        Vendedor creador,
-        double precioMinimo,
-        ArrayList<Objeto> objetosSubastados
-    ) throws Exception {
+            Vendedor creador,
+            double precioMinimo,
+            ArrayList<Objeto> objetosSubastados) throws Exception {
         Subasta subasta = new Subasta(creador, precioMinimo, objetosSubastados);
         return DAOSubasta.insertarSubasta(subasta);
     }
@@ -42,14 +42,13 @@ public class GestorSubastas {
             ArrayList<Subasta> listaSubastas = listarSubastas();
             for (Subasta subasta : listaSubastas) {
                 subasta.actualizarVigencia();
-                if (!subasta.isVigente() && cr.ac.ucenfotec.bl.dao.DAOOferta.obtenerCantidadOfertas(subasta.getId()) > 0) {
-                    cr.ac.ucenfotec.bl.entities.Oferta ganadora = subasta.obtenerOfertaGanadora();
+                if (!subasta.isVigente() && DAOOferta.obtenerCantidadOfertas(subasta.getId()) > 0) {
+                    Oferta ganadora = subasta.obtenerOfertaGanadora();
                     if (ganadora != null) {
                         OrdenAdjudicacion ordenAdjudicacion = new OrdenAdjudicacion(
-                            ganadora.getOferente().getNombre(),
-                            subasta.getObjetosSubastados(),
-                            ganadora.getPrecioOfertado()
-                        );
+                                ganadora.getOferente().getNombre(),
+                                subasta.getObjetosSubastados(),
+                                ganadora.getPrecioOfertado());
                     }
                 }
             }

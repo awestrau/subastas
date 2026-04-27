@@ -31,7 +31,7 @@ public class Menu {
             mostrarMenu();
             opcion = leerEntero("Seleccione una opción: ");
             procesarOpcion(opcion);
-        } while (opcion != 11);
+        } while (opcion != 10);
     }
 
     private static void verificarModerador() throws Exception {
@@ -52,11 +52,10 @@ public class Menu {
                 "4. Listado de subastas\n" +
                 "5. Creación de ofertas\n" +
                 "6. Listado de ofertas\n" +
-                "7. Crear objeto\n" +
-                "8. Listado de objetos\n" +
-                "9. Actualizar estado de objeto\n" +
-                "10. Actualizar estado de subasta\n" +
-                "11. Salir"
+                "7. Listado de objetos\n" +
+                "8. Actualizar estado de objeto\n" +
+                "9. Actualizar estado de subasta\n" +
+                "10. Salir"
         );
     }
 
@@ -81,18 +80,15 @@ public class Menu {
                 Controlador.listarOfertas();
                 break;
             case 7:
-                Controlador.crearObjeto();
-                break;
-            case 8:
                 Controlador.listarObjetos();
                 break;
-            case 9:
+            case 8:
                 Controlador.actualizarEstadoObjeto();
                 break;
-            case 10:
+            case 9:
                 Controlador.actualizarEstadoSubasta();
                 break;
-            case 11:
+            case 10:
                 System.out.println("Saliendo del sistema...");
                 break;
             default:
@@ -179,13 +175,17 @@ public class Menu {
 
     private static void listarUsuarios() {
         System.out.println("\n--- Listado de Usuarios ---");
-        ArrayList<Usuario> usuarios = GestorUsuarios.listarUsuarios();
-        if (usuarios.isEmpty()) {
-            System.out.println("No hay usuarios registrados.");
-        } else {
-            for (Usuario u : usuarios) {
-                System.out.println(u.toString());
+        try {
+            ArrayList<Usuario> usuarios = GestorUsuarios.listarUsuarios();
+            if (usuarios.isEmpty()) {
+                System.out.println("No hay usuarios registrados.");
+            } else {
+                for (Usuario u : usuarios) {
+                    System.out.println(u.toString());
+                }
             }
+        } catch (Exception e) {
+            System.out.println("Error al listar usuarios: " + e.getMessage());
         }
     }
 

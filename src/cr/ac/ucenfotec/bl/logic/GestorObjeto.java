@@ -12,6 +12,11 @@ public class GestorObjeto {
         return DAOObjeto.insertarObjeto(nuevoObjeto);
     }
 
+    public static Objeto crearYObtenerObjeto(String nombre, String descripcion) throws Exception {
+        Objeto nuevoObjeto = new Objeto(nombre, descripcion);
+        return DAOObjeto.insertarYObtenerObjeto(nuevoObjeto);
+    }
+
     public static ArrayList<Objeto> listarObjetos() throws Exception {
         return DAOObjeto.listarObjetos();
     }
