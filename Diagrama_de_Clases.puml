@@ -12,6 +12,59 @@ package cr.ac.ucenfotec {
     }
 }
 
+package cr.ac.ucenfotec.dl {
+    class AccesoBD {
+        - conexion: Connection
+        - statement: Statement
+        - preparedStatement: PreparedStatement
+        + AccesoBD(direccion: String, usuario: String, password: String)
+        + ejecutarStatement(statement: String)
+        + ejecutarQuery(query: String): ResultSet
+        + ejecutarStatementConRetornoId(query: String): int
+    }
+    class Conector {
+        - {static} conexionBD: AccesoBD
+        + {static} getConexion(): AccesoBD
+    }
+}
+
+package cr.ac.ucenfotec.bl.dao {
+    class DAOColeccionista {
+        + {static} insertarColeccionista(coleccionista: Coleccionista): String
+        + {static} listarColeccionistas(): ArrayList<Coleccionista>
+    }
+    class DAOModerador {
+        + {static} insertarModerador(moderador: Moderador): String
+        + {static} listarModeradores(): ArrayList<Moderador>
+        + {static} existeModerador(): Boolean
+    }
+    class DAOObjeto {
+        + {static} insertarObjeto(objeto: Objeto): String
+        + {static} insertarYObtenerObjeto(objeto: Objeto): Objeto
+        + {static} listarObjetos(): ArrayList<Objeto>
+        + {static} actualizarEstado(id: int, nuevoEstado: String): String
+    }
+    class DAOOferta {
+        + {static} registrarOferta(subasta: Subasta, oferente: Coleccionista, monto: double): String
+        + {static} listarOfertasPorSubasta(idSubasta: int): ArrayList<Oferta>
+        + {static} obtenerCantidadOfertas(idSubasta: int): int
+        + {static} obtenerOfertaGanadora(idSubasta: int): Oferta
+    }
+    class DAOOrdenAdjudicacion {
+        + {static} registrarOrden(orden: OrdenAdjudicacion): String
+        + {static} listarOrdenes(): ArrayList<OrdenAdjudicacion>
+    }
+    class DAOSubasta {
+        + {static} insertarSubasta(subasta: Subasta): String
+        + {static} listarSubastas(): ArrayList<Subasta>
+        + {static} actualizarEstado(id: int, vigente: boolean): String
+    }
+    class DAOVendedor {
+        + {static} insertarVendedor(vendedor: Vendedor): String
+        + {static} listarVendedores(): ArrayList<Vendedor>
+    }
+}
+
 package cr.ac.ucenfotec.ui {
     class Menu {
         - {static} scanner: Scanner
@@ -23,21 +76,33 @@ package cr.ac.ucenfotec.ui {
         - {static} listarUsuarios()
         - {static} leerEntero(mensaje: String): int
         - {static} leerFecha(mensaje: String): LocalDate
-        - {static} crearSubasta()
-        - {static} listarSubastas()
-        - {static} crearOferta()
-        - {static} listarOferta()
+    }
+}
+
+package cr.ac.ucenfotec.tl {
+    class Controlador {
+        - {static} scanner: Scanner
+        + {static} registrarUsuario(tipoForzado: int)
+        + {static} listarUsuarios()
+        + {static} existeModerador(): boolean
+        + {static} crearObjeto()
+        + {static} listarObjetos()
+        + {static} actualizarEstadoObjeto()
+        + {static} crearSubasta()
+        + {static} listarSubastas()
+        + {static} actualizarEstadoSubasta()
+        + {static} crearOferta()
+        + {static} listarOfertas()
+        + {static} listarOrdenesAdjudicacion()
     }
 }
 
 package cr.ac.ucenfotec.bl.logic {
     class GestorSubastas {
-        - {static} listaSubastas: ArrayList<Subasta>
-        + {static} crearSubasta(creador: Coleccionista, precioMinimo: double, nombresObjetos: ArrayList<String>, descripciones: ArrayList<String>)
-        + {static} crearSubasta(creador: Vendedor, precioMinimo: double, nombresObjetos: ArrayList<String>, descripciones: ArrayList<String>)
-        + {static} realizaroferta(oferente: Coleccionista, subasta: Subasta, monto: double)
-        + {static} crearOrdenAdjudicacion()
+        + {static} crearSubasta(creador: Coleccionista, precioMinimo: double, objetosSubastados: ArrayList<Objeto>): String
+        + {static} crearSubasta(creador: Vendedor, precioMinimo: double, objetosSubastados: ArrayList<Objeto>): String
         + {static} listarSubastas(): ArrayList<Subasta>
+        + {static} actualizarEstadoSubasta(id: int, vigente: boolean): String
     }
 
     class GestorUsuarios {
@@ -48,6 +113,39 @@ package cr.ac.ucenfotec.bl.logic {
         + {static} registrarVendedor(nombre: String, id: String, password: String, fechaNacimiento: LocalDate, correo: String, puntuacionVendedor: int, direccion: String)
         + {static} registrarColeccionista(nombre: String, id: String, password: String, fechaNacimiento: LocalDate, correo: String, puntuacionColeccionista: int, direccion: String)
         + {static} listarUsuarios(): ArrayList<Usuario>
+    }
+    
+    class GestorColeccionista {
+        + {static} registrarColeccionista(nombre: String, id: String, password: String, fechaNacimiento: LocalDate, correo: String, puntuacion: int, direccion: String): String
+        + {static} listarColeccionistas(): ArrayList<Coleccionista>
+    }
+    
+    class GestorModerador {
+        + {static} registrarModerador(nombre: String, id: String, password: String, fechaNacimiento: LocalDate, correo: String): String
+        + {static} listarModeradores(): ArrayList<Moderador>
+        + {static} existeModerador(): Boolean
+    }
+    
+    class GestorVendedor {
+        + {static} registrarVendedor(nombre: String, id: String, password: String, fechaNacimiento: LocalDate, correo: String, puntuacion: int, direccion: String): String
+        + {static} listarVendedores(): ArrayList<Vendedor>
+    }
+
+    class GestorObjeto {
+        + {static} crearObjeto(nombre: String, descripcion: String): String
+        + {static} crearYObtenerObjeto(nombre: String, descripcion: String): Objeto
+        + {static} listarObjetos(): ArrayList<Objeto>
+        + {static} actualizarEstadoObjeto(id: int, estado: String): String
+    }
+
+    class GestorOferta {
+        + {static} realizarOferta(oferente: Coleccionista, subasta: Subasta, monto: double): String
+        + {static} listarOfertasPorSubasta(idSubasta: int): ArrayList<Oferta>
+    }
+
+    class GestorOrdenAdjudicacion {
+        + {static} registrarOrdenAdjudicacion(idGanador: String, idSubasta: int, idOferta: int): String
+        + {static} listarOrdenes(): ArrayList<OrdenAdjudicacion>
     }
 }
 
@@ -66,6 +164,8 @@ package cr.ac.ucenfotec.bl.entities {
         # antiguedad: String
         + Objeto(nombre: String, descripcion: String, estado: String, fechaCompra: LocalDate, antiguedad: String)
         + Objeto(nombre: String, descripcion: String)
+        + getId(): int
+        + setId(id: int)
         + getNombre(): String
         + setNombre(nombre: String)
         + getDescripcion(): String
@@ -85,9 +185,12 @@ package cr.ac.ucenfotec.bl.entities {
         # precioOfertado: double
         + Oferta()
         + Oferta(oferente: Coleccionista, precioOfertado: double)
+        + Oferta(idOferta: int, oferente: Coleccionista, precioOfertado: double)
+        + getIdOferta(): int
         + getOferente(): Coleccionista
         + getPuntuacionOferente(): double
         + getPrecioOfertado(): double
+        + setIdOferta(idOferta: int)
         + setOferente(oferente: Coleccionista)
         + setPuntuacionOferente(puntuacionOferente: double)
         + setPrecioOfertado(precioOfertado: double)
@@ -100,15 +203,18 @@ package cr.ac.ucenfotec.bl.entities {
         # objetosAdjudicados: ArrayList<Objeto>
         # precioTotal: double
         + OrdenAdjudicacion()
-        + OrdenAdjudicacion(nombreGanador: String, objetosAdjudicados: ArrayList<Objeto>, precioTotal: double)
-        + getNombreGanador(): String
+        + OrdenAdjudicacion(idGanador: String, idSubasta: int, idOferta: int)
+        + OrdenAdjudicacion(idOrden: int, idGanador: String, idSubasta: int, idOferta: int, fechaOrden: LocalDateTime)
+        + getIdOrden(): int
+        + getIdGanador(): String
+        + getIdSubasta(): int
+        + getIdOferta(): int
         + getFechaOrden(): LocalDateTime
-        + getObjetosAdjudicados(): ArrayList<Objeto>
-        + getPrecioTotal(): double
-        + setNombreGanador(nombreGanador: String)
+        + setIdOrden(idOrden: int)
+        + setIdGanador(idGanador: String)
+        + setIdSubasta(idSubasta: int)
+        + setIdOferta(idOferta: int)
         + setFechaOrden(fechaOrden: LocalDateTime)
-        + setObjetosAdjudicados(objetosAdjudicados: ArrayList<Objeto>)
-        + setPrecioTotal(precioTotal: double)
         + toString(): String
     }
 
@@ -120,11 +226,11 @@ package cr.ac.ucenfotec.bl.entities {
         # precioMinimo: double
         # objetosSubastados: ArrayList<Objeto>
         # vigente: boolean
-        # oferta: Oferta
         # listaOfertas: ArrayList<Oferta>
         + Subasta(creador: Coleccionista, precioMinimo: double, objetosSubastados: ArrayList<Objeto>)
         + Subasta(creador: Vendedor, precioMinimo: double, objetosSubastados: ArrayList<Objeto>)
         + Subasta()
+        + getId(): int
         + getFechaVencimiento(): LocalDateTime
         + getTiempoParaVencer(): Duration
         + getCreador(): Usuario
@@ -132,16 +238,15 @@ package cr.ac.ucenfotec.bl.entities {
         + getPrecioMinimo(): double
         + getObjetosSubastados(): ArrayList<Objeto>
         + isVigente(): boolean
-        + getListaOfertas(): ArrayList<Oferta>
+        + setId(id: int)
         + setFechaVencimiento(fechaVencimiento: LocalDateTime)
         + setTiempoParaVencer(tiempoParaVencer: Duration)
         + setCreador(creador: Usuario)
         + setCalificacionCreador(calificacionCreador: double)
         + setPrecioMinimo(precioMinimo: double)
-        + setObjetosSubastados(objetosSubastados: ArrayList<Objeto>)
+        + setObjetosSubastados(objetoSubastados: ArrayList<Objeto>)
         + setEstado(estado: boolean)
         + toString(): String
-        + agregarOferta(oferente: Coleccionista, monto: Double)
         + obtenerOfertaGanadora(): Oferta
         + actualizarVigencia()
     }
@@ -211,14 +316,43 @@ package cr.ac.ucenfotec.bl.entities.usuarios {
 
 Main ..> Menu : inicia
 
-Menu ..> GestorUsuarios : usa
-Menu ..> GestorSubastas : usa
+Menu ..> Controlador : usa
 
-GestorUsuarios o-- Usuario
+Controlador ..> GestorSubastas : usa
+Controlador ..> GestorUsuarios : usa
+Controlador ..> GestorColeccionista : usa
+Controlador ..> GestorModerador : usa
+Controlador ..> GestorVendedor : usa
+Controlador ..> GestorObjeto : usa
+Controlador ..> GestorOferta : usa
+Controlador ..> GestorOrdenAdjudicacion : usa
+
+GestorSubastas ..> DAOSubasta : usa
+GestorColeccionista ..> DAOColeccionista : usa
+GestorModerador ..> DAOModerador : usa
+GestorVendedor ..> DAOVendedor : usa
+GestorObjeto ..> DAOObjeto : usa
+GestorOferta ..> DAOOferta : usa
+GestorOrdenAdjudicacion ..> DAOOrdenAdjudicacion : usa
+
+DAOSubasta ..> AccesoBD : usa
+DAOColeccionista ..> AccesoBD : usa
+DAOModerador ..> AccesoBD : usa
+DAOVendedor ..> AccesoBD : usa
+DAOObjeto ..> AccesoBD : usa
+DAOOferta ..> AccesoBD : usa
+DAOOrdenAdjudicacion ..> AccesoBD : usa
+
+AccesoBD ..> Conector : usa
+
+GestorColeccionista o-- Coleccionista
+GestorModerador o-- Moderador
+GestorVendedor o-- Vendedor
 
 GestorSubastas *-- Subasta
-GestorSubastas ..> OrdenAdjudicacion : crea
-GestorSubastas ..> Oferta : administra
+GestorObjeto *-- Objeto
+GestorOferta *-- Oferta
+GestorOrdenAdjudicacion *-- OrdenAdjudicacion
 
 Usuario <|-- Coleccionista
 Usuario <|-- Moderador
