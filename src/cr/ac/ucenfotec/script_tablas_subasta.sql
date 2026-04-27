@@ -33,7 +33,9 @@ CREATE TABLE t_ofertas(
     id_subasta INT NOT NULL,
     id_oferente VARCHAR(50) NOT NULL,
     puntuacion_oferente DECIMAL(5,2) NOT NULL,
-    precio_ofertado DECIMAL(10,2) NOT NULL
+    precio_ofertado DECIMAL(10,2) NOT NULL,
+    FOREIGN KEY (id_subasta) REFERENCES t_subastas(id_subasta),
+    FOREIGN KEY (id_oferente) REFERENCES t_coleccionistas(id)
 );
 
 CREATE TABLE t_ordenes_adjudicacion(

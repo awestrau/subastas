@@ -19,8 +19,6 @@ public class Subasta {
     private double precioMinimo;
     private ArrayList<Objeto> objetosSubastados;
     private boolean vigente;
-    private Oferta oferta;
-    private ArrayList<Oferta> listaOfertas;
 
     // Constructores
     public Subasta(Coleccionista creador, double precioMinimo, ArrayList<Objeto> objetosSubastados) throws Exception {
@@ -49,7 +47,6 @@ public class Subasta {
         this.precioMinimo = precioMinimo;
         this.objetosSubastados = objetosSubastados;
         this.vigente = true;
-        this.listaOfertas = new ArrayList<>();
     }
 
     public Subasta(Vendedor creador, double precioMinimo, ArrayList<Objeto> objetosSubastados) throws Exception {
@@ -64,7 +61,6 @@ public class Subasta {
         this.precioMinimo = precioMinimo;
         this.objetosSubastados = objetosSubastados;
         this.vigente = true;
-        this.listaOfertas = new ArrayList<>();
     }
 
     public Subasta() {
@@ -104,9 +100,7 @@ public class Subasta {
         return vigente;
     }
 
-    public ArrayList<Oferta> getListaOfertas() {
-        return listaOfertas;
-    }
+
 
     // Setters
     public void setId(int id) {
@@ -145,25 +139,18 @@ public class Subasta {
     @Override
     public String toString() {
         String estado = vigente ? "🟢 VIGENTE" : "🔴 CERRADA";
+        int cantidadOfertas = cr.ac.ucenfotec.bl.dao.DAOOferta.obtenerCantidadOfertas(id);
         return String.format("🔨 Subasta [%d] [%s] | Creador: %s | Precio Base: $%.2f\n   Vence: %s | En lista: %d objetos, %d ofertas", 
-                id, estado, creador.getNombre(), precioMinimo, fechaVencimiento, objetosSubastados.size(), listaOfertas.size());
-    }
-
-    public void agregarOferta(Coleccionista oferente, Double monto) {
-        oferta = new Oferta(oferente, monto);
-        this.listaOfertas.add(oferta);
+                id, estado, creador.getNombre(), precioMinimo, fechaVencimiento, objetosSubastados.size(), cantidadOfertas);
     }
 
     public Oferta obtenerOfertaGanadora() {
-        Oferta mejor = null;
-
-        for (Oferta ofertaComparar : listaOfertas) {
-            if (mejor == null || ofertaComparar.getPrecioOfertado() > mejor.getPrecioOfertado()) {
-                mejor = ofertaComparar;
-            }
+        try {
+            return cr.ac.ucenfotec.bl.dao.DAOOferta.obtenerOfertaGanadora(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
         }
-
-        return mejor;
     }
 
     public void actualizarVigencia() {

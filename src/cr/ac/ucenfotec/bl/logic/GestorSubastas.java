@@ -37,27 +37,24 @@ public class GestorSubastas {
         return DAOSubasta.actualizarEstado(id, vigente);
     }
 
-    public static void realizaroferta(
-        Coleccionista oferente,
-        Subasta subasta,
-        double monto
-    ) throws Exception {
-        if (subasta.getCreador().equals(oferente)) {
-            throw new Exception("El creador de la subasta no puede ofertar");
-        }
-        subasta.agregarOferta(oferente, monto);
-    }
-
     public static void crearOrdenAdjudicacion() {
-        for (Subasta subasta : listaSubastas) {
-            subasta.actualizarVigencia();
-            if (!subasta.isVigente() && !subasta.getListaOfertas().isEmpty()) {
-                OrdenAdjudicacion ordenAdjudicacion = new OrdenAdjudicacion(
-                    subasta.obtenerOfertaGanadora().getOferente().getNombre(),
-                    subasta.getObjetosSubastados(),
-                    subasta.obtenerOfertaGanadora().getPrecioOfertado()
-                );
+        try {
+            ArrayList<Subasta> listaSubastas = listarSubastas();
+            for (Subasta subasta : listaSubastas) {
+                subasta.actualizarVigencia();
+                if (!subasta.isVigente() && cr.ac.ucenfotec.bl.dao.DAOOferta.obtenerCantidadOfertas(subasta.getId()) > 0) {
+                    cr.ac.ucenfotec.bl.entities.Oferta ganadora = subasta.obtenerOfertaGanadora();
+                    if (ganadora != null) {
+                        OrdenAdjudicacion ordenAdjudicacion = new OrdenAdjudicacion(
+                            ganadora.getOferente().getNombre(),
+                            subasta.getObjetosSubastados(),
+                            ganadora.getPrecioOfertado()
+                        );
+                    }
+                }
             }
+        } catch (Exception e) {
+            System.out.println("Error al crear órdenes de adjudicación: " + e.getMessage());
         }
     }
 

@@ -9,6 +9,13 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
+import java.util.ArrayList;
+import cr.ac.ucenfotec.bl.entities.Subasta;
+import cr.ac.ucenfotec.bl.entities.Oferta;
+import cr.ac.ucenfotec.bl.entities.usuarios.Usuario;
+import cr.ac.ucenfotec.bl.entities.usuarios.Coleccionista;
+import cr.ac.ucenfotec.bl.logic.GestorSubastas;
+import cr.ac.ucenfotec.bl.logic.GestorOferta;
 
 public class Controlador {
     private static Scanner scanner = new Scanner(System.in);
@@ -18,6 +25,17 @@ public class Controlador {
             System.out.print(mensaje);
             try {
                 return Integer.parseInt(scanner.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.println("Por favor, ingrese un número válido.");
+            }
+        }
+    }
+
+    private static double leerDouble(String mensaje) {
+        while (true) {
+            System.out.print(mensaje);
+            try {
+                return Double.parseDouble(scanner.nextLine());
             } catch (NumberFormatException e) {
                 System.out.println("Por favor, ingrese un número válido.");
             }
@@ -97,7 +115,14 @@ public class Controlador {
         System.out.println("\n--- Listado de Usuarios ---");
         GestorModerador.listarModeradores();
         GestorVendedor.listarVendedores();
-        GestorColeccionista.listarColeccionistas();
+        java.util.ArrayList<Coleccionista> coleccionistas = GestorColeccionista.listarColeccionistas();
+        if (coleccionistas.isEmpty()) {
+            System.out.println("\n***No hay coleccionistas***");
+        } else {
+            for (Coleccionista c : coleccionistas) {
+                System.out.println(c);
+            }
+        }
     }
 
     public static boolean existeModerador() throws Exception {
@@ -241,6 +266,89 @@ public class Controlador {
             System.out.println(cr.ac.ucenfotec.bl.logic.GestorSubastas.actualizarEstadoSubasta(id, vigente));
         } catch (Exception e) {
             System.out.println("Error al actualizar estado de la subasta: " + e.getMessage());
+        }
+    }
+
+    public static void crearOferta() {
+        try {
+            System.out.println("\n--- Crear Oferta ---");
+
+            ArrayList<Coleccionista> coleccionistas = GestorColeccionista.listarColeccionistas();
+
+            if (coleccionistas.isEmpty()) {
+                System.out.println("No hay coleccionistas registrados.");
+                return;
+            }
+
+            System.out.println("Seleccione oferente:");
+            for (int i = 0; i < coleccionistas.size(); i++) {
+                System.out.println(i + " - " + coleccionistas.get(i).getNombre());
+            }
+
+            int indiceColeccionista = leerEntero("Opción: ");
+            if (indiceColeccionista < 0 || indiceColeccionista >= coleccionistas.size()) {
+                System.out.println("Opción inválida.");
+                return;
+            }
+            Coleccionista oferente = coleccionistas.get(indiceColeccionista);
+
+            ArrayList<Subasta> subastas = GestorSubastas.listarSubastas();
+
+            if (subastas.isEmpty()) {
+                System.out.println("No hay subastas disponibles.");
+                return;
+            }
+
+            System.out.println("Seleccione subasta:");
+            for (int i = 0; i < subastas.size(); i++) {
+                System.out.println(i + " - " + subastas.get(i).toString());
+            }
+
+            int indiceSubasta = leerEntero("Opción: ");
+            if (indiceSubasta < 0 || indiceSubasta >= subastas.size()) {
+                System.out.println("Opción inválida.");
+                return;
+            }
+            Subasta subasta = subastas.get(indiceSubasta);
+
+            double monto = leerDouble("Monto de la oferta: ");
+
+            System.out.println(GestorOferta.realizarOferta(oferente, subasta, monto));
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+
+    public static void listarOfertas() {
+        System.out.println("\n--- Listado de Ofertas ---");
+        try {
+            ArrayList<Subasta> subastas = GestorSubastas.listarSubastas();
+
+            if (subastas.isEmpty()) {
+                System.out.println("No hay subastas registradas.");
+                return;
+            }
+
+            boolean hayOfertas = false;
+
+            for (Subasta s : subastas) {
+                ArrayList<Oferta> ofertasDeSubasta = GestorOferta.listarOfertasPorSubasta(s.getId());
+                if (!ofertasDeSubasta.isEmpty()) {
+                    System.out.println("\nSubasta: " + s.toString());
+
+                    for (Oferta o : ofertasDeSubasta) {
+                        System.out.println(o.toString());
+                    }
+
+                    hayOfertas = true;
+                }
+            }
+
+            if (!hayOfertas) {
+                System.out.println("No hay ofertas registradas.");
+            }
+        } catch (Exception e) {
+            System.out.println("Error al listar ofertas: " + e.getMessage());
         }
     }
 }

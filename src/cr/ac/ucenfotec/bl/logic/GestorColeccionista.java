@@ -11,7 +11,7 @@ public class GestorColeccionista {
         return DAOColeccionista.insertarColeccionista(new Coleccionista(nombre, id, password, fechaNacimiento, correo, puntuacion, direccion));
     }
 
-    public static void listarColeccionistas() throws Exception {
-        DAOColeccionista.listarColeccionistas();
+    public static java.util.ArrayList<Coleccionista> listarColeccionistas() throws Exception {
+        return DAOColeccionista.listarColeccionistas();
     }
 }

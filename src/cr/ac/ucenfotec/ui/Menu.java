@@ -75,10 +75,10 @@ public class Menu {
                 Controlador.listarSubastas();
                 break;
             case 5:
-                crearOferta();
+                Controlador.crearOferta();
                 break;
             case 6:
-                listarOferta();
+                Controlador.listarOfertas();
                 break;
             case 7:
                 Controlador.crearObjeto();
@@ -215,89 +215,4 @@ public class Menu {
         }
     }
 
-
-
-//    private static void crearOferta() {
-//        try {
-//            System.out.println("\n--- Crear Oferta ---");
-//
-//            ArrayList<Usuario> usuarios = GestorUsuarios.listarUsuarios();
-//            ArrayList<Coleccionista> coleccionistas = new ArrayList<>();
-//
-//            for (Usuario u : usuarios) {
-//                if (u instanceof Coleccionista) {
-//                    coleccionistas.add((Coleccionista) u);
-//                }
-//            }
-//
-//            if (coleccionistas.isEmpty()) {
-//                System.out.println("No hay coleccionistas registrados.");
-//                return;
-//            }
-//
-//            System.out.println("Seleccione oferente:");
-//
-//            for (int i = 0; i < coleccionistas.size(); i++) {
-//                System.out.println(
-//                    i + " - " + coleccionistas.get(i).getNombre()
-//                );
-//            }
-//
-//            int indiceColeccionista = leerEntero("Opción: ");
-//            Coleccionista oferente = coleccionistas.get(indiceColeccionista);
-//
-//            ArrayList<Subasta> subastas = GestorSubastas.listarSubastas();
-//
-//            if (subastas.isEmpty()) {
-//                System.out.println("No hay subastas disponibles.");
-//                return;
-//            }
-//
-//            System.out.println("Seleccione subasta:");
-//
-//            for (int i = 0; i < subastas.size(); i++) {
-//                System.out.println(i + " - " + subastas.get(i));
-//            }
-//
-//            int indiceSubasta = leerEntero("Opción: ");
-//            Subasta subasta = subastas.get(indiceSubasta);
-//
-//            double monto = leerEntero("Monto de la oferta: ");
-//
-//            GestorSubastas.realizaroferta(oferente, subasta, monto);
-//
-//            System.out.println("Oferta registrada correctamente.");
-//        } catch (Exception e) {
-//            System.out.println("Error: " + e.getMessage());
-//        }
-//    }
-//
-//    private static void listarOferta() {
-//        System.out.println("\n--- Listado de Ofertas ---");
-//
-//        ArrayList<Subasta> subastas = GestorSubastas.listarSubastas();
-//
-//        if (subastas.isEmpty()) {
-//            System.out.println("No hay subastas registradas.");
-//            return;
-//        }
-//
-//        boolean hayOfertas = false;
-//
-//        for (Subasta s : subastas) {
-//            if (!s.getListaOfertas().isEmpty()) {
-//                System.out.println("\nSubasta: " + s.toString());
-//
-//                for (Oferta o : s.getListaOfertas()) {
-//                    System.out.println(o.toString());
-//                }
-//
-//                hayOfertas = true;
-//            }
-//        }
-//
-//        if (!hayOfertas) {
-//            System.out.println("No hay ofertas registradas.");
-//        }
-//    }
 }
