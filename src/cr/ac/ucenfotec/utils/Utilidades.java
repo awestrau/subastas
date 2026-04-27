@@ -8,7 +8,7 @@ public class Utilidades {
 
         String[] propiedades = new String[5];
         Properties lectura = new Properties();
-        String ruta = "src/gonzalez/alexander/utils/bd.properties";
+        String ruta = "src/cr/ac/ucenfotec/utils/bd.properties";
 
         try {
             lectura.load(new FileInputStream(ruta));

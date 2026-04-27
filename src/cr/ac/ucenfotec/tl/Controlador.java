@@ -1,5 +1,6 @@
 package cr.ac.ucenfotec.tl;
 
+import cr.ac.ucenfotec.bl.entities.usuarios.Usuario;
 import cr.ac.ucenfotec.bl.logic.GestorColeccionista;
 import cr.ac.ucenfotec.bl.logic.GestorModerador;
 import cr.ac.ucenfotec.bl.logic.GestorUsuarios;
@@ -8,6 +9,7 @@ import cr.ac.ucenfotec.bl.logic.GestorVendedor;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Controlador {
@@ -89,5 +91,16 @@ public class Controlador {
         } catch (Exception e) {
             System.out.println("Error al registrar usuario: " + e.getMessage());
         }
+    }
+
+    public static void listarUsuarios() throws Exception {
+        System.out.println("\n--- Listado de Usuarios ---");
+        GestorModerador.listarModeradores();
+        GestorVendedor.listarVendedores();
+        GestorColeccionista.listarColeccionistas();
+    }
+
+    public static boolean existeModerador() throws Exception {
+        return GestorModerador.existeModerador();
     }
 }

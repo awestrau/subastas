@@ -22,7 +22,7 @@ public class Menu {
     // Los constructores ya no son necesarios ya que todas las clases son estáticas.
     // Los gestores GestorUsuarios y GestorSubastas ahora se llaman directamente con sus métodos estáticos.
 
-    public static void iniciar() {
+    public static void iniciar() throws Exception {
         System.out.println("=== Sistema de Subastas ===");
         verificarModerador();
 
@@ -34,8 +34,8 @@ public class Menu {
         } while (opcion != 7);
     }
 
-    private static void verificarModerador() {
-        if (!GestorUsuarios.existeModerador()) {
+    private static void verificarModerador() throws Exception {
+        if (!Controlador.existeModerador()) {
             System.out.println(
                 "No existe un moderador en el sistema. Debe registrar uno para continuar."
             );
@@ -56,13 +56,13 @@ public class Menu {
         );
     }
 
-    private static void procesarOpcion(int opcion) {
+    private static void procesarOpcion(int opcion) throws Exception {
         switch (opcion) {
             case 1:
                 Controlador.registrarUsuario(0);
                 break;
             case 2:
-                listarUsuarios();
+                Controlador.listarUsuarios();
                 break;
             case 3:
                 //Controlador.crearSubasta();
