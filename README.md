@@ -13,10 +13,18 @@
 
 ## Instrucciones de Ejecución
 
-### 1. Base de Datos (MySQL)
-Es necesario tener en ejecución la base de datos MySQL. Asegúrese de haber importado el esquema inicial usando el script provisto en `src/cr/ac/ucenfotec/script_tablas_subasta.sql`:
+### 1. Base de Datos (MySQL) vía Docker
+El proyecto incluye un archivo `docker-compose.yml` ya configurado con las credenciales que se encuentran en el archivo `bd.properties` (usuario `root`, contraseña `4280zdvd`, base de datos `db_subastas`).
+
+Para arrancar el motor de base de datos junto con la creación automática de todas sus tablas, ejecute en la terminal desde la raíz del proyecto:
 ```bash
-mysql -u root -p < src/cr/ac/ucenfotec/script_tablas_subasta.sql
+docker-compose up -d
+```
+> **Nota:** La primera vez que lo ejecute tomará unos instantes descargar la imagen e inicializar el script SQL automáticamente. Espere un momento antes de ejecutar el programa principal.
+
+Para detener y limpiar el contenedor al finalizar sus pruebas, puede usar:
+```bash
+docker-compose down
 ```
 
 ### 2. Configuración JDBC

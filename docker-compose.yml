@@ -1,0 +1,15 @@
+services:
+  mysql-db:
+    image: mysql:8.0
+    container_name: subastas_mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: 4280zdvd
+      MYSQL_DATABASE: db_subastas
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./src/cr/ac/ucenfotec/script_tablas_subasta.sql:/docker-entrypoint-initdb.d/init.sql
+
+volumes:
+  mysql_data:
