@@ -6,13 +6,13 @@ CREATE TABLE t_objetos(
     nombre VARCHAR(25) NOT NULL,
     descripcion TEXT NOT NULL,
     estado VARCHAR(15) NOT NULL,
-    fecha_compra DATETIME NOT NULL,
+    fecha_compra DATE NOT NULL,
     antiguedad VARCHAR(25) NOT NULL
 );
 
 CREATE TABLE t_subastas(
     id_subasta INT AUTO_INCREMENT PRIMARY KEY,
-    fecha_vencimiento DATETIME NOT NULL,
+    fecha_vencimiento DATE NOT NULL,
     tiempo_para_vencer VARCHAR(25) NOT NULL,
     creador_id VARCHAR(50) NOT NULL,
     calificacion_creador DECIMAL(5,2) NOT NULL,
@@ -31,7 +31,7 @@ CREATE TABLE t_ofertas(
 CREATE TABLE t_ordenes_adjudicacion(
     id_orden INT AUTO_INCREMENT PRIMARY KEY,
     nombre_ganador VARCHAR(100) NOT NULL,
-    fecha_orden DATETIME NOT NULL,
+    fecha_orden DATE NOT NULL,
     precio_total DECIMAL(10,2) NOT NULL
 );
 
