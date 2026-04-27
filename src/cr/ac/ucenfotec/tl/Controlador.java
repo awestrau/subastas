@@ -33,7 +33,8 @@ public class Controlador {
                 return LocalDate.parse(input, formatter);
             } catch (DateTimeParseException e) {
                 System.out.println(
-                        "Formato de fecha inválido. Intente de nuevo con formato YYYY-MM-DD.");
+                        "Formato de fecha inválido. Intente de nuevo con formato YYYY-MM-DD."
+                );
             }
         }
     }
@@ -45,7 +46,8 @@ public class Controlador {
                 System.out.println(
                         "\n--- Registro de usuario ---\n" +
                                 "1. Vendedor\n" +
-                                "2. Coleccionista");
+                                "2. Coleccionista"
+                );
                 tipo = leerEntero("Seleccione una opción: ");
 
                 if (tipo != 1 && tipo != 2) {
@@ -65,7 +67,8 @@ public class Controlador {
             String password = scanner.nextLine();
 
             LocalDate fechaNacimiento = leerFecha(
-                    "Fecha de nacimiento (YYYY-MM-DD): ");
+                    "Fecha de nacimiento (YYYY-MM-DD): "
+            );
 
             if (tipo == 1) {
                 // Moderador
@@ -88,6 +91,17 @@ public class Controlador {
         } catch (Exception e) {
             System.out.println("Error al registrar usuario: " + e.getMessage());
         }
+    }
+
+    public static void listarUsuarios() throws Exception {
+        System.out.println("\n--- Listado de Usuarios ---");
+        GestorModerador.listarModeradores();
+        GestorVendedor.listarVendedores();
+        GestorColeccionista.listarColeccionistas();
+    }
+
+    public static boolean existeModerador() throws Exception {
+        return GestorModerador.existeModerador();
     }
 
     public static void crearObjeto() {

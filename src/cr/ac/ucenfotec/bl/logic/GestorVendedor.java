@@ -11,4 +11,8 @@ public class GestorVendedor {
             throws Exception {
         return DAOVendedor.insertarVendedor(new Vendedor(nombre, id, password, fechaNacimiento, correo, puntuacion, direccion));
     }
+
+    public static void listarVendedores() throws Exception {
+        DAOVendedor.listarVendedores();
+    }
 }
