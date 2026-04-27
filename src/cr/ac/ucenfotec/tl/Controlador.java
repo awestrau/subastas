@@ -4,7 +4,7 @@ import cr.ac.ucenfotec.bl.logic.GestorColeccionista;
 import cr.ac.ucenfotec.bl.logic.GestorModerador;
 import cr.ac.ucenfotec.bl.logic.GestorUsuarios;
 import cr.ac.ucenfotec.bl.logic.GestorVendedor;
-
+import cr.ac.ucenfotec.bl.logic.GestorObjeto;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -110,7 +110,7 @@ public class Controlador {
             String nombre = scanner.nextLine();
             System.out.print("Descripción del objeto: ");
             String descripcion = scanner.nextLine();
-            System.out.println(GestorObjetos.crearObjeto(nombre, descripcion));
+            System.out.println(GestorObjeto.crearObjeto(nombre, descripcion));
         } catch (Exception e) {
             System.out.println("Error al crear objeto: " + e.getMessage());
         }
